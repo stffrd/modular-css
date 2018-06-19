@@ -25,6 +25,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
+    "@tivac/eslint-config": "^2.1.2",
     "browserify": "^16.2.0",
     "cli-tester": "^2.0.0",
     "cssnano": "^4.0.0-rc.1",
@@ -40,6 +41,8 @@
     "lerna": "^3.0.0-beta.21",
     "lint-staged": "^7.0.4",
     "modular-css-core": "file:./packages/core",
+    "parcel-assert-bundle-tree": "^1.0.0",
+    "parcel-bundler": "^1.9.2",
     "pegjs": "^0.10.0",
     "rollup": "^0.60.4",
     "rollup-plugin-svelte": "^4.1.0",
