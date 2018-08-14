@@ -1,0 +1,71 @@
+<div class="file">
+    <div class="meta">
+        <h3 class="name">{name}</h3>
+
+        <button class="remove" on:click="fire('remove', { name })">Remove</button>
+    </div>
+    
+    <textarea bind:value="css">{css}</textarea>
+</div>
+
+<style>
+.file + .file {
+    margin-top: 20px;
+}
+
+.meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 5px;
+}
+
+.name {
+    flex: 1;
+    margin: 2px 0;
+    letter-spacing: 2px;
+}
+
+.remove {
+    background: #000;
+    color: #F00;
+
+    border: 2px solid #FFF;
+    padding: 0 0.5em;
+}
+
+</style>
+
+<script>
+import fs from "fs";
+
+export default {
+    data() {
+        return {
+            name : "/1.css",
+            css  : "",
+        };
+    },
+
+    oncreate() {
+        const { name } = this.get();
+        
+        this.set({
+            css : fs.readFileSync(name, "utf8")
+        });
+    },
+
+    onstate({ changed, current }) {
+        if(!changed.css) {
+            return;
+        }
+
+        const { name, css } = this.get();
+
+        fs.writeFileSync(name, css, "utf8");
+    }
+};
+</script>

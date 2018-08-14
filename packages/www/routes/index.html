@@ -1,0 +1,103 @@
+<svelte:head>
+	<title>modular-css@{version}</title>
+</svelte:head>
+
+<div class="files">
+	<div class="actions">
+		<button class="add" on:click="$createFile()" title="Add another file">
+			Add File
+		</button>
+	</div>
+
+	{#each [...$files] as name}
+		<File {name} on:remove="$removeFile(event.name)"/>
+	{:else}
+		<File />
+	{/each}
+</div>
+
+<div class="output">
+	<div class="actions">
+		<button
+			class="copy"
+			title="Copy all output to your clipboard"
+			data-clipboard-text="{$report}"
+		>
+			Copy Details
+		</button>
+	</div>
+
+	<div class="pane">
+		<div class="meta">
+			<h3 class="name">CSS Output</h3>
+		</div>
+
+		<textarea></textarea>
+	</div>
+
+	<div class="pane">
+		<div class="meta">
+			<h3 class="name">JSON Output</h3>
+		</div>
+
+		<textarea></textarea>
+	</div>
+</div>
+
+<style>
+.pane + .pane {
+    margin-top: 20px;
+}
+
+.files {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+
+	margin: 10px;
+	position: relative;
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+
+	margin-bottom: 20px;
+}
+
+.add {
+	color: green;
+}
+</style>
+
+<script>
+import { version } from "../package.json";
+import store from "../store.js";
+
+export default {
+	store() {
+		return store;
+	},
+
+	components : {
+		File : "../components/File.html",
+	},
+
+	data() {
+		return {
+			version,
+		};
+	},
+
+	oncreate() {
+		const hash = location.hash.length ? location.hash.slice(1) : false;
+
+		// No existing state, create a default file
+		if(!hash) {
+			this.store.createFile();
+
+			return;
+		}
+	}
+};
+</script>
