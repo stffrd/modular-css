@@ -4,16 +4,12 @@
 
 <div class="files">
 	<div class="actions">
-		<button class="add" on:click="$createFile()" title="Add another file">
+		<button class="add" on:click="createFile()" title="Add another file">
 			Add File
 		</button>
 	</div>
 
-	{#each [...$files] as name}
-		<File {name} on:remove="$removeFile(event.name)"/>
-	{:else}
-		<File />
-	{/each}
+	
 </div>
 
 <div class="output">
@@ -74,10 +70,10 @@
 import { version } from "../package.json";
 import store from "../store.js";
 
+console.log(store.get());
+
 export default {
-	store() {
-		return store;
-	},
+	store : () => store,
 
 	components : {
 		File : "../components/File.html",
@@ -89,12 +85,20 @@ export default {
 		};
 	},
 
+	methods : {
+		createFile() {
+			const { count } = this.store.get();
+
+			this.store.write(`/${count + 1}.css`, "\n");
+		}
+	},
+
 	oncreate() {
-		const { files } = this.store.get();
+		const { count } = this.store.get();
 
 		// Create a default file if none exist
-		if(!files.size) {
-			files.set("/1.css", "\n");
+		if(!count) {
+			this.store.write("/1.css", "\n");
 		}
 	}
 };

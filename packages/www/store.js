@@ -18,13 +18,37 @@ class CssStore extends Store {
         });
     }
 
+    read(file) {
+        return fs.readFileSync(file);
+    }
+
+    write(file, css) {
+        fs.writeFileSync(file, css);
+
+        const { files } = this.get();
+
+        files[file] = css;
+
+        this.set({ files });
+    }
+
+    delete(file) {
+        fs.unlinkSync(file);
+
+        const { files } = this.get();
+
+        delete files[file];
+
+        this.set({ files });
+    }
+
     async process() {
         const { files } = this.get;
         const processor = this._processor;
 
         var hash = btoa(
                 JSON.stringify(
-                    [...files.entries()].map(([ name, css ]) => ({
+                    Object.entries(files).map(([ name, css ]) => ({
                         name,
                         css,
                     }))
@@ -35,7 +59,7 @@ class CssStore extends Store {
 
         try {
             await Promise.all(
-                [ ...files.entries()].map(([ file, css ]) => processor.string(file, css))
+                Object.entries(files).map(([ file, css ]) => processor.string(file, css))
             );
 
             const result = await processor.output();
@@ -56,7 +80,7 @@ class CssStore extends Store {
 };
 
 const store = new CssStore({
-    files : new Map(),
+    files : {},
 
     css   : "",
     json  : "",
@@ -64,23 +88,32 @@ const store = new CssStore({
     error : false,
 });
 
+debugger;
+
 // Computed properties
-// store.compute("count", [ "files" ], (files) => console.log(files) && files.size);
+store.compute("count", [ "files" ], (files) => files ? Object.keys(files).length - 1: 0);
 
 store.compute(
     "report",
     [ "files", "css", "json", "error" ],
-    (files, css, json, error) => `## Files\n\n${
-        [...files.entries()]
-            .map(([ file, css ]) => `/* ${file} */\n${css}`)
-            .concat(
-                css && `## CSS Output\n\n${css}`,
-                json && `## JSON Output\n\n${json}`,
-                error && `## Error\n\n${error}`
-            )
-            .filter(Boolean)
-            .join("\n\n")
-    }`
+    (files, css, json, error) => {
+        if(!files) {
+            return;
+        }
+
+        return `## Files\n\n${
+            Object.entries(files)
+                .map(([ file, css ]) => `/* ${file} */\n${css}`)
+                .concat(
+                    css && `## CSS Output\n\n${css}`,
+                    json && `## JSON Output\n\n${json}`,
+                    error && `## Error\n\n${error}`
+                )
+                .filter(Boolean)
+                .join("\n\n")
+            }
+        `;
+    }
 );
 
 store.on("state", ({ changed, current }) => {
