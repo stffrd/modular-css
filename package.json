@@ -18,7 +18,8 @@
     "pretest": "npm run parser",
     "test": "jest",
     "posttest": "npm run lint",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "www": "sapper dev"
   },
   "devDependencies": {
     "@modular-css/test-utils": "file:packages/test-utils",

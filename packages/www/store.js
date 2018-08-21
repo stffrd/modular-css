@@ -3,88 +3,93 @@ import fs from "fs";
 import Processor from "modular-css-core";
 import { Store } from "svelte/store.js";
 
-class McssStore extends Store {
-    createFile() {
-        const { files } = this.get();
-        
-        var file = `/${files.size + 1}.css`;
+class CssStore extends Store {
+    constructor() {
+        super();
 
-        fs.writeFileSync(file, `\n`);
+        this._processor = new Processor({
+            resolvers : [
+                (src, file) => {
+                    file = file.replace(/^\.\.\/|\.\//, "");
 
-        files.add(file);
-
-        this.set({
-            files,
+                    return `/${file}`;
+                },
+            ],
         });
     }
 
-    removeFile(name) {
-        const { files } = this.get();
+    async process() {
+        const { files } = this.get;
+        const processor = this._processor;
 
-        files.delete(name);
-
-        this.set({
-            files,
-        });
-    }
-
-    report() {
-        const { files, output, error } = this.get();
-
-        return `## Files\n\n${
-            [...files]
-                .map((file) => `/* ${file} */\n${fs.readFileSync(file, "utf8")}`)
-                .concat(
-                    output.css && `## CSS Output\n\n${output.css}`,
-                    output.json && `## JSON Output\n\n${output.json}`,
-                    error && `## Error\n\n${error}`
+        var hash = btoa(
+                JSON.stringify(
+                    [...files.entries()].map(([ name, css ]) => ({
+                        name,
+                        css,
+                    }))
                 )
-                .filter(Boolean)
-                .join("\n\n")
-        }`;
+            );
+
+        location.hash = `#${hash}`;
+
+        try {
+            await Promise.all(
+                [ ...files.entries()].map(([ file, css ]) => processor.string(file, css))
+            );
+
+            const result = await processor.output();
+
+            this.set({
+                css : result.css,
+                json : JSON.stringify(result.compositions, null, 4),
+                error : false,
+                tab : "CSS"
+            });
+        } catch(e) {
+            this.set({
+                error : `${e.toString()}\n\n${e.stack}`,
+                tab : "Error"
+            });
+        }
     }
 };
 
-const store = new McssStore({
-    files : new Set(),
+const store = new CssStore({
+    files : new Map(),
 
-    output : {
-        css : "",
-        js  : false,
-    },
-
-    processor : new Processor({
-        resolvers : [
-            (src, file) => {
-                file = file.replace(/^\.\.\/|\.\//, "");
-
-                return `/${file}`;
-            },
-        ],
-    }),
-    
-    tab : "CSS",
-    
+    css   : "",
+    json  : "",
+    tab   : "CSS",
     error : false,
 });
 
 // Computed properties
-store.compute("count", [ "files" ], (files) => files.size);
+// store.compute("count", [ "files" ], (files) => console.log(files) && files.size);
+
 store.compute(
     "report",
-    [ "files", "output", "error" ],
-    (files, output, error) => `## Files\n\n${
-        [...files]
-            .map((file) => `/* ${file} */\n${fs.readFileSync(file, "utf8")}`)
+    [ "files", "css", "json", "error" ],
+    (files, css, json, error) => `## Files\n\n${
+        [...files.entries()]
+            .map(([ file, css ]) => `/* ${file} */\n${css}`)
             .concat(
-                output.css && `## CSS Output\n\n${output.css}`,
-                output.json && `## JSON Output\n\n${output.json}`,
+                css && `## CSS Output\n\n${css}`,
+                json && `## JSON Output\n\n${json}`,
                 error && `## Error\n\n${error}`
             )
             .filter(Boolean)
             .join("\n\n")
     }`
 );
+
+store.on("state", ({ changed, current }) => {
+    console.log({ changed, current });
+
+    if(changed.files) {
+        return store.process();
+    }
+});
 
 // Debugging
 (global || window).store = store;

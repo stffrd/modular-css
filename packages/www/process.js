@@ -5,7 +5,7 @@ import throttle from "throttleit";
 
 import state from "./state.js";
 
-export function process() {
+export default async () => {
     var hash = btoa(
             JSON.stringify(
                 state.files.map((name) => ({
@@ -16,14 +16,16 @@ export function process() {
         );
     
     location.hash = `#${hash}`;
-    
-    Promise.all(
-        state.files.map((file) =>
-            state.processor.file(file)
-        )
-    )
-    .then(() => state.processor.output())
-    .then((result) => {
+        
+    try {
+        await Promise.all(
+            [ ...state.files].map((file) =>
+                state.processor.file(file)
+            )
+        );
+
+        const result = await state.processor.output();
+        
         state.output.css  = result.css;
         state.output.json = JSON.stringify(result.compositions, null, 4);
 
@@ -32,11 +34,9 @@ export function process() {
         if(state.tab === "Errors") {
             state.tab = "CSS";
         }
-    })
-    .catch((e) => {
+    } catch(e) {
         state.error = `${e.toString()}\n\n${e.stack}`;
-    })
-    .then(m.redraw);
+    }
 }
 
 export const throttled = throttle(process, 200);

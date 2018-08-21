@@ -5,10 +5,9 @@
   "author": "Pat Cavit <npm@patcavit.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "sapper dev",
     "build": "sapper build",
     "export": "sapper export",
-    "start": "node build"
+    "start": "sapper dev"
   },
   "dependencies": {
     "@modular-css/processor": "file:../processor",

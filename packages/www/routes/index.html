@@ -90,13 +90,11 @@ export default {
 	},
 
 	oncreate() {
-		const hash = location.hash.length ? location.hash.slice(1) : false;
+		const { files } = this.store.get();
 
-		// No existing state, create a default file
-		if(!hash) {
-			this.store.createFile();
-
-			return;
+		// Create a default file if none exist
+		if(!files.size) {
+			files.set("/1.css", "\n");
 		}
 	}
 };

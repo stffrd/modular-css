@@ -5,7 +5,7 @@
         <button class="remove" on:click="fire('remove', { name })">Remove</button>
     </div>
     
-    <textarea bind:value="css">{css}</textarea>
+    <textarea ref:textarea>{css}</textarea>
 </div>
 
 <style>
@@ -66,6 +66,25 @@ export default {
         const { name, css } = this.get();
 
         fs.writeFileSync(name, css, "utf8");
+    },
+
+    onupdate() {
+        // var editor = cm.fromTextArea(this.refs.textarea, {
+        //         mode        : "text/css",
+        //         theme       : "monokai",
+        //         lineNumbers : true,
+        //         autofocus   : true,
+        //     });
+
+        // editor.on("changes", () => {
+        //     fs.writeFileSync(file, editor.doc.getValue());
+
+        //     state.processor.remove([
+        //         file,
+        //     ]);
+
+        //     throttled();
+        // });
     }
 };
 </script>
