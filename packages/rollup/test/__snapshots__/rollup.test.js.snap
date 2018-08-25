@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`/rollup.js should accept an existing processor instance 1`] = `
+exports[`/rollup.js should accept an existing processor instance: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/fake.css */
 .fake {
     color: yellow;
@@ -28,16 +28,16 @@ console.log(fooga);
 "
 `;
 
-exports[`/rollup.js should correctly pass to/from params for relative paths 1`] = `
+exports[`/rollup.js should correctly pass to/from params for relative paths: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/relative-paths.css */
 .wooga {
     color: red;
-    background: url(\\"../../../../specimens/folder/to.png\\");
+    background: url(\\"../../../../../Documents/Code/modular-css/packages/rollup/test/specimens/folder/to.png\\");
 }
 "
 `;
 
-exports[`/rollup.js should generate CSS 1`] = `
+exports[`/rollup.js should generate CSS: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/simple.css */
 .fooga {
     color: red;
@@ -45,7 +45,7 @@ exports[`/rollup.js should generate CSS 1`] = `
 "
 `;
 
-exports[`/rollup.js should generate JSON 1`] = `
+exports[`/rollup.js should generate JSON with a custom name: toMatchFileSnapshot 1`] = `
 "{
     \\"packages/rollup/test/specimens/simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
@@ -54,7 +54,7 @@ exports[`/rollup.js should generate JSON 1`] = `
 }"
 `;
 
-exports[`/rollup.js should generate JSON with a custom name 1`] = `
+exports[`/rollup.js should generate JSON: toMatchFileSnapshot 1`] = `
 "{
     \\"packages/rollup/test/specimens/simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
@@ -78,9 +78,7 @@ Object {
   "file": Any<String>,
   "mappings": "AAAA,+CAAC;AAED;IACI,WAAW;CACd",
   "names": Array [],
-  "sources": Array [
-    "../../../../specimens/simple.css",
-  ],
+  "sources": Any<Array>,
   "sourcesContent": Array [
     "@value str: \\"string\\";
 
@@ -93,7 +91,7 @@ Object {
 }
 `;
 
-exports[`/rollup.js should generate external source maps 2`] = `
+exports[`/rollup.js should generate external source maps: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/simple.css */
 .fooga {
     color: red;
@@ -102,7 +100,7 @@ exports[`/rollup.js should generate external source maps 2`] = `
 /*# sourceMappingURL=simple.css.map */"
 `;
 
-exports[`/rollup.js should handle assetFileNames being undefined 1`] = `
+exports[`/rollup.js should handle assetFileNames being undefined: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/simple.css */
 .fooga {
     color: red;
@@ -110,7 +108,7 @@ exports[`/rollup.js should handle assetFileNames being undefined 1`] = `
 "
 `;
 
-exports[`/rollup.js should not output sourcemaps when they are disabled 1`] = `
+exports[`/rollup.js should not output sourcemaps when they are disabled: toMatchFileSnapshot 1`] = `
 "/* packages/rollup/test/specimens/simple.css */
 .fooga {
     color: red;
@@ -136,7 +134,7 @@ console.log(styles);
 "
 `;
 
-exports[`/rollup.js should respect the CSS dependency tree 1`] = `
+exports[`/rollup.js should respect the CSS dependency tree: toMatchFileSnapshot 1`] = `
 "var css = {
     \\"wooga\\": \\"fooga wooga\\"
 };
@@ -145,7 +143,7 @@ console.log(css);
 "
 `;
 
-exports[`/rollup.js should respect the CSS dependency tree 2`] = `
+exports[`/rollup.js should respect the CSS dependency tree: toMatchFileSnapshot 2`] = `
 "/* packages/rollup/test/specimens/simple.css */
 .fooga {
     color: red;
@@ -205,7 +203,7 @@ console.log(css);
 }
 `;
 
-exports[`/rollup.js shouldn't over-remove files from an existing processor instance 1`] = `
+exports[`/rollup.js shouldn't over-remove files from an existing processor instance: toMatchFileSnapshot 1`] = `
 "var css = {
     \\"a\\": \\"c a\\"
 };
@@ -218,7 +216,7 @@ console.log(css, css$1);
 "
 `;
 
-exports[`/rollup.js shouldn't over-remove files from an existing processor instance 2`] = `
+exports[`/rollup.js shouldn't over-remove files from an existing processor instance: toMatchFileSnapshot 2`] = `
 "/* packages/rollup/test/specimens/repeated-references/d.css */
 .d {
     color: darkblue;
