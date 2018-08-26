@@ -1,4 +1,4 @@
-/* eslint max-statements: [ 1, 20 ] */
+/* eslint max-statements: [ "warn", 20 ] */
 "use strict";
 
 const fs = require("fs");
@@ -6,7 +6,7 @@ const path = require("path");
 
 const { keyword } = require("esutils");
 
-const utils   = require("rollup-pluginutils");
+const { createFilter } = require("rollup-pluginutils");
 
 const Processor = require("modular-css-core");
 const output    = require("modular-css-core/lib/output.js");
@@ -31,12 +31,12 @@ module.exports = function(opts) {
     const options = Object.assign(Object.create(null), {
         common       : "common.css",
         json         : false,
-        include      : "**/*.css",
+        include      : /\.css$/i,
         namedExports : true,
         styleExport  : false,
     }, opts);
         
-    const filter = utils.createFilter(options.include, options.exclude);
+    const filter = createFilter(options.include, options.exclude);
 
     const { styleExport, done, map } = options;
 
