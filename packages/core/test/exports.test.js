@@ -1,9 +1,10 @@
 "use strict";
 
-var dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
-    
-    Processor = require("../processor.js");
+const dedent = require("dedent");
+const namer  = require("test-utils/namer.js");
+const { find } = require("test-utils/fixtures.js");
+
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("exports", () => {
@@ -15,28 +16,25 @@ describe("/processor.js", () => {
             });
         });
         
-        it("should export an object of arrays containing strings", () =>
-            processor.string(
+        it("should export an object of arrays containing strings", async () => {
+            const result = await processor.string(
                 "./simple.css",
                 dedent(`
                     .red { color: red; }
                     .black { background: #000; }
                     .one, .two { composes: red, black; }
                 `)
-            )
-            .then((result) =>
-                expect(result.exports).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should export identifiers and their classes", () =>
-            processor.file(
-                "./packages/core/test/specimens/start.css"
-            )
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+            expect(result.exports).toMatchSnapshot();
+        });
+
+        it("should export identifiers and their classes", async () => {
+            await processor.file(find("start.css"));
+            
+            const output = await processor.output();
+            
+            expect(output.compositions).toMatchSnapshot();
+        });
     });
 });

@@ -1,10 +1,11 @@
 "use strict";
 
-var path = require("path"),
-    dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
+const dedent = require("dedent");
+
+const namer  = require("test-utils/namer.js");
+const { find } = require("test-utils/fixtures.js");
     
-    Processor = require("../processor.js");
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("composition", () => {
@@ -16,40 +17,36 @@ describe("/processor.js", () => {
             });
         });
 
-        it("should fail on invalid composes syntax", () =>
-            processor.string(
+        it("should fail on invalid composes syntax", async () => {
+            await expect(processor.string(
                 "./invalid/value.css",
                 ".a { composes: b from nowhere.css; }"
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`SyntaxError: Expected source but "n" found.`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`SyntaxError: Expected source but "n" found.`),
+                plugin  : "modular-css-graph-nodes",
+            });
+        });
         
-        it("should fail if a composition references a non-existant class", () =>
-            processor.string(
+        it("should fail if a composition references a non-existant class", async () => {
+            await expect(processor.string(
                 "./invalid-composition.css",
                 ".a { composes: b; }"
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`Invalid composes reference`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining("Invalid composes reference"),
+            });
+        });
         
-        it("should fail if a composition references a non-existant file", () =>
-            processor.string(
+        it("should fail if a composition references a non-existant file", async () => {
+            await expect(processor.string(
                 "./invalid-composition.css",
                 ".a { composes: b from \"../local.css\"; }"
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(
-                    `Unable to locate "../local.css" from "${path.resolve("invalid-composition.css")}"`
-                )
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`Unable to locate "../local.css" from `),
+            });
+        });
 
-        it("should fail if composes isn't the first property", () =>
-            processor.string(
+        it("should fail if composes isn't the first property", async () => {
+            await expect(processor.string(
                 "./invalid/composes-first.css",
                 dedent(`
                     .a { color: red; }
@@ -58,41 +55,39 @@ describe("/processor.js", () => {
                         composes: a;
                     }
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`composes must be the first declaration`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`composes must be the first declaration`),
+            });
+        });
 
-        it("should fail on rules that use multiple selectors", () =>
-            processor.string(
+        it("should fail on rules that use multiple selectors", async () => {
+            await expect(processor.string(
                 "./invalid/composes-first.css",
                 dedent(`
                     .a { color: red; }
                     .b .c { composes: a; }
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`Only simple singular selectors may use composition`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`Only simple singular selectors may use composition`),
+            });
+        });
 
-        it("should compose a single class", () =>
-            processor.string(
+        it("should compose a single class", async () => {
+            await processor.string(
                 "./single-composes.css",
                 dedent(`
                     .a { color: red; }
                     .b { composes: a; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should allow comments before composes", () =>
-            processor.string(
+            const output = await processor.output();
+            
+            expect(output.compositions).toMatchSnapshot();
+        });
+
+        it("should allow comments before composes", async () => {
+            await processor.string(
                 "./multiple-composes.css",
                 dedent(`
                     .a { color: red; }
@@ -101,28 +96,28 @@ describe("/processor.js", () => {
                         composes: a;
                     }
                 `)
-            )
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should compose from globals", () =>
-            processor.string(
+            const output = await processor.output();
+            
+            expect(output.compositions).toMatchSnapshot();
+        });
+
+        it("should compose from globals", async () => {
+            await processor.string(
                 "./global-compose.css",
                 dedent(`
                     .a { composes: global(b); }
                 `)
-            )
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should compose multiple classes", () =>
-            processor.string(
+            const output = await processor.output();
+            
+            expect(output.compositions).toMatchSnapshot();
+        });
+
+        it("should compose multiple classes", async () => {
+            await processor.string(
                 "./multiple-composes.css",
                 dedent(`
                     .a { color: red; }
@@ -132,19 +127,19 @@ describe("/processor.js", () => {
                         composes: b;
                     }
                 `)
-            )
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+            );
+
+            const output = await processor.output();
+            
+            expect(output.compositions).toMatchSnapshot();
+        });
         
-        it("should compose from other files", () =>
-            processor.file(require.resolve("./specimens/composes.css"))
-            .then(() => processor.output())
-            .then((output) =>
-                expect(output.compositions).toMatchSnapshot()
-            )
-        );
+        it("should compose from other files", async () => {
+            await processor.file(find("composes.css"));
+
+            const output = await processor.output();
+
+            expect(output.compositions).toMatchSnapshot();
+        });
     });
 });

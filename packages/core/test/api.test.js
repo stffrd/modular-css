@@ -2,6 +2,7 @@
 
 const namer    = require("test-utils/namer.js");
 const relative = require("test-utils/relative.js");
+const { find } = require("test-utils/fixtures.js");
 
 const Processor = require("../processor.js");
 
@@ -34,7 +35,7 @@ describe("/processor.js", () => {
         
         describe(".file()", () => {
             it("should process a relative file", async () => {
-                const result = await processor.file("./packages/core/test/specimens/simple.css");
+                const result = await processor.file(find("simple.css"));
 
             
                 expect(result.exports).toMatchSnapshot();
@@ -44,9 +45,7 @@ describe("/processor.js", () => {
             });
 
             it("should process an absolute file", async () => {
-                const result = await processor.file(
-                    require.resolve("./specimens/simple.css")
-                );
+                const result = await processor.file(find("simple.css"));
 
                 expect(result.exports).toMatchSnapshot();
                 expect(result.details.exports).toMatchSnapshot();
@@ -69,11 +68,11 @@ describe("/processor.js", () => {
 
             it("should remove an absolute file", async () => {
                 await processor.string(
-                    "./packages/core/test/specimens/simple.css",
+                    find("simple.css"),
                     ".wooga { }"
                 );
 
-                processor.remove(require.resolve("./specimens/simple.css"));
+                processor.remove(find("simple.css"));
                     
                 expect(relative(processor.dependencies())).toMatchSnapshot();
             });
@@ -109,41 +108,41 @@ describe("/processor.js", () => {
         
         describe(".dependencies()", () => {
             it("should return the dependencies of the specified file", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
+
+                const dependencies = relative(processor.dependencies(find("start.css")));
                 
-                expect(
-                    relative(processor.dependencies(require.resolve("./specimens/start.css")))
-                )
-                .toMatchSnapshot();
+                expect(dependencies).toMatchSnapshot();
             });
             
             it("should return the overall order of dependencies if no file is specified", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
 
-                expect(relative(processor.dependencies())).toMatchSnapshot();
+                const dependencies = relative(processor.dependencies());
+
+                expect(dependencies).toMatchSnapshot();
             });
         });
 
         describe(".dependents()", () => {
             it("should return the dependents of the specified file", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
 
-                expect(
-                    relative(processor.dependents(require.resolve("./specimens/local.css")))
-                )
-                .toMatchSnapshot();
+                const dependents = relative(processor.dependents(find("local.css")));
+
+                expect(dependents).toMatchSnapshot();
             });
             
             it("should throw if no file is passed", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                
+                await processor.file(find("start.css"));
+
                 expect(() => processor.dependents()).toThrowErrorMatchingSnapshot();
             });
         });
         
         describe(".output()", () => {
             it("should return a postcss result", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
                 
                 const result = await processor.output();
                 
@@ -151,8 +150,8 @@ describe("/processor.js", () => {
             });
             
             it("should generate css representing the output from all added files", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                await processor.file("./packages/core/test/specimens/simple.css");
+                await processor.file(find("start.css"));
+                await processor.file(find("simple.css"));
                 
                 const result = await processor.output();
 
@@ -160,8 +159,8 @@ describe("/processor.js", () => {
             });
 
             it("should avoid duplicating files in the output", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                await processor.file("./packages/core/test/specimens/local.css");
+                await processor.file(find("start.css"));
+                await processor.file(find("local.css"));
                 
                 const result = await processor.output();
 
@@ -169,7 +168,7 @@ describe("/processor.js", () => {
             });
             
             it("should generate a JSON structure of all the compositions", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
                 
                 const result = await processor.output();
 
@@ -177,10 +176,10 @@ describe("/processor.js", () => {
             });
             
             it("should order output by dependencies, then alphabetically", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                await processor.file("./packages/core/test/specimens/local.css");
-                await processor.file("./packages/core/test/specimens/composes.css");
-                await processor.file("./packages/core/test/specimens/deep.css");
+                await processor.file(find("start.css"));
+                await processor.file(find("local.css"));
+                await processor.file(find("composes.css"));
+                await processor.file(find("deep.css"));
                 
                 const result = await processor.output();
 
@@ -188,12 +187,12 @@ describe("/processor.js", () => {
             });
 
             it("should support returning output for specified relative files", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                await processor.file("./packages/core/test/specimens/local.css");
+                await processor.file(find("start.css"));
+                await processor.file(find("local.css"));
                 
                 const result = await processor.output({
                     files : [
-                        "./packages/core/test/specimens/start.css",
+                        find("start.css"),
                     ],
                 });
 
@@ -201,12 +200,12 @@ describe("/processor.js", () => {
             });
 
             it("should support returning output for specified absolute files", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
-                await processor.file("./packages/core/test/specimens/local.css");
+                await processor.file(find("start.css"));
+                await processor.file(find("local.css"));
                 
                 const result = await processor.output({
                     files : [
-                        require.resolve("./specimens/start.css"),
+                        find("start.css"),
                     ],
                 });
 
@@ -214,13 +213,13 @@ describe("/processor.js", () => {
             });
 
             it("should reject if called before input has been processed", () => {
-                processor.file(require.resolve("./specimens/start.css"));
+                processor.file(find("start.css"));
 
                 return expect(processor.output()).rejects.toMatchSnapshot();
             });
 
             it("should allow for seperate source map output", async () => {
-                await processor.file("./packages/core/test/specimens/start.css");
+                await processor.file(find("start.css"));
                 
                 const result = await processor.output({
                     map : {
@@ -247,7 +246,7 @@ describe("/processor.js", () => {
                 expect(
                     relative([
                         processor._resolve(
-                            require.resolve("./specimens/start.css"),
+                            find("start.css"),
                             "./local.css"
                         ),
                     ])
@@ -267,7 +266,7 @@ describe("/processor.js", () => {
                 expect(
                     relative([
                         processor._resolve(
-                            require.resolve("./specimens/start.css"),
+                            find("start.css"),
                             "./local.css"
                         ),
                     ])

@@ -1,9 +1,9 @@
 "use strict";
 
-var dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
-    
-    Processor = require("../processor.js");
+const dedent = require("dedent");
+const namer  = require("test-utils/namer.js");
+
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("scoping", () => {
@@ -15,76 +15,76 @@ describe("/processor.js", () => {
             });
         });
 
-        it("should leave unknown animation names alone", () =>
-            processor.string(
+        it("should leave unknown animation names alone", async () => {
+            await processor.string(
                 "./unknown-name.css",
                 dedent(`
                     .a { animation: a; }
                     .b { animation-name: b; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+            );
+
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
+        });
         
-        it("should update scoped animations from the scoping plugin's message", () =>
-            processor.string(
+        it("should update scoped animations from the scoping plugin's message", async () => {
+            await processor.string(
                 "./animation.css",
                 dedent(`
                     @keyframes a {}
                     .b { animation: a; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should update the animation-name property", () =>
-            processor.string(
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
+        });
+
+        it("should update the animation-name property", async () => {
+            await processor.string(
                 "./animation-name.css",
                 dedent(`
                     @keyframes a {}
                     .b { animation-name: a; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+            );
+
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
+        });
 
         // Issue 208
-        it("should update multiple animations properly", () =>
-            processor.string(
+        it("should update multiple animations properly", async () => {
+            await processor.string(
                 "./multiple-animations.css",
                 dedent(`
                     @keyframes a {}
                     @keyframes b {}
                     .c { animation: a 10s linear, b 0.2s infinite; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+            );
 
-        it("should update scoped prefixed animations from the scoping plugin's message", () =>
-            processor.string(
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
+        });
+
+        it("should update scoped prefixed animations from the scoping plugin's message", async () => {
+            await processor.string(
                 "./prefixed-animations.css",
                 dedent(`
                     @-webkit-keyframes a {}
                     .b { animation: a; }
                 `)
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+            );
+
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
+        });
     });
 });

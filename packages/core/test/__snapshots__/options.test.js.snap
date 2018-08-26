@@ -9,51 +9,51 @@ Object {
 `;
 
 exports[`/processor.js options lifecycle options after should run async postcss plugins 1`] = `
-"/* packages/core/test/specimens/relative.css */
+"/* fixtures/relative.css */
 .wooga {
     color: red;
-    background: url(\\"../specimens/folder/to.png\\");
+    background: url(\\"../fixtures/folder/to.png\\");
 }
 a {}
 "
 `;
 
 exports[`/processor.js options lifecycle options after should run sync postcss plugins 1`] = `
-"/* packages/core/test/specimens/relative.css */
+"/* fixtures/relative.css */
 .wooga {
     color: red;
-    background: url(\\"../specimens/folder/to.png\\");
+    background: url(\\"../fixtures/folder/to.png\\");
 }
 a {}
 "
 `;
 
 exports[`/processor.js options lifecycle options after should use postcss-url by default 1`] = `
-"/* packages/core/test/specimens/relative.css */
-.mcbb30f12e_wooga {
+"/* fixtures/relative.css */
+.mcf4554978_wooga {
     color: red;
-    background: url(\\"../specimens/folder/to.png\\");
+    background: url(\\"../fixtures/folder/to.png\\");
 }
 "
 `;
 
 exports[`/processor.js options lifecycle options before should run async postcss plugins before processing 1`] = `
-"/* packages/core/test/specimens/async-before.css */
+"/* fixtures/async-before.css */
 a {}"
 `;
 
 exports[`/processor.js options lifecycle options before should run sync postcss plugins before processing 1`] = `
-"/* packages/core/test/specimens/sync-before.css */
+"/* fixtures/sync-before.css */
 a {}"
 `;
 
 exports[`/processor.js options lifecycle options done should run async postcss plugins done processing 1`] = `
-"/* packages/core/test/specimens/async-done.css */
+"/* fixtures/async-done.css */
 a {}"
 `;
 
 exports[`/processor.js options lifecycle options done should run sync postcss plugins done processing 1`] = `
-"/* packages/core/test/specimens/sync-done.css */
+"/* fixtures/sync-done.css */
 a {}"
 `;
 
@@ -65,37 +65,37 @@ Object {
 `;
 
 exports[`/processor.js options lifecycle options processing should run async postcss plugins processing processing 1`] = `
-"/* packages/core/test/specimens/async-processing.css */
+"/* fixtures/async-processing.css */
 a {}"
 `;
 
 exports[`/processor.js options lifecycle options processing should run sync postcss plugins processing processing 1`] = `
-"/* packages/core/test/specimens/sync-processing.css */
+"/* fixtures/sync-processing.css */
 a {}"
 `;
 
 exports[`/processor.js options map should generate external source maps 1`] = `
-"/* packages/core/test/specimens/folder/folder.css */
+"/* fixtures/folder/folder.css */
 .folder { margin: 2px; }
-/* packages/core/test/specimens/local.css */
+/* fixtures/local.css */
 .booga { background: green; }
-/* packages/core/test/specimens/start.css */
+/* fixtures/start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhY2thZ2VzL2NvcmUvdGVzdC9zcGVjaW1lbnMvZm9sZGVyL2ZvbGRlci5jc3MiLCJwYWNrYWdlcy9jb3JlL3Rlc3Qvc3BlY2ltZW5zL2xvY2FsLmNzcyIsInBhY2thZ2VzL2NvcmUvdGVzdC9zcGVjaW1lbnMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG9EQUFDO0FBQ0QsVUFBVSxZQUFZLEVBQUU7QUNEeEIsNENBQUM7QUFJRCxTQUFTLGtCQUFrQixFQUFFO0FDSjdCLDRDQUFDO0FBRUQsU0RGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsU0ZIQSx3QkFBcUIsRUVHZSIsImZpbGUiOiJvdXQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL2ZvbGRlci9mb2xkZXIuY3NzIiwiZml4dHVyZXMvbG9jYWwuY3NzIiwiZml4dHVyZXMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdDQUFDO0FBQ0QsVUFBVSxZQUFZLEVBQUU7QUNEeEIsd0JBQUM7QUFJRCxTQUFTLGtCQUFrQixFQUFFO0FDSjdCLHdCQUFDO0FBRUQsU0RGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsU0ZIQSx3QkFBcUIsRUVHZSIsImZpbGUiOiJvdXQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
 `;
 
 exports[`/processor.js options map should generate source maps 1`] = `
-"/* packages/core/test/specimens/folder/folder.css */
+"/* fixtures/folder/folder.css */
 .folder { margin: 2px; }
-/* packages/core/test/specimens/local.css */
+/* fixtures/local.css */
 .booga { background: green; }
-/* packages/core/test/specimens/start.css */
+/* fixtures/start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhY2thZ2VzL2NvcmUvdGVzdC9zcGVjaW1lbnMvZm9sZGVyL2ZvbGRlci5jc3MiLCJwYWNrYWdlcy9jb3JlL3Rlc3Qvc3BlY2ltZW5zL2xvY2FsLmNzcyIsInBhY2thZ2VzL2NvcmUvdGVzdC9zcGVjaW1lbnMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG9EQUFDO0FBQ0QsVUFBVSxZQUFZLEVBQUU7QUNEeEIsNENBQUM7QUFJRCxTQUFTLGtCQUFrQixFQUFFO0FDSjdCLDRDQUFDO0FBRUQsU0RGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsU0ZIQSx3QkFBcUIsRUVHZSIsImZpbGUiOiJvdXQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL2ZvbGRlci9mb2xkZXIuY3NzIiwiZml4dHVyZXMvbG9jYWwuY3NzIiwiZml4dHVyZXMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdDQUFDO0FBQ0QsVUFBVSxZQUFZLEVBQUU7QUNEeEIsd0JBQUM7QUFJRCxTQUFTLGtCQUFrQixFQUFFO0FDSjdCLHdCQUFDO0FBRUQsU0RGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsU0ZIQSx3QkFBcUIsRUVHZSIsImZpbGUiOiJvdXQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
 `;
 
 exports[`/processor.js options namer should require a namer if a string is passed 1`] = `
@@ -109,7 +109,7 @@ Object {
 exports[`/processor.js options namer should use a custom naming function 1`] = `
 Object {
   "wooga": Array [
-    "packages_core_test_specimens_simple_css_wooga",
+    "packages_core_test_fixtures_simple_css_wooga",
   ],
 }
 `;
@@ -119,38 +119,39 @@ exports[`/processor.js options namer should use a custom naming function 2`] = `
 exports[`/processor.js options namer should use a custom naming function 3`] = `
 Object {
   "wooga": Array [
-    "packages_core_test_specimens_simple_css_wooga",
+    "packages_core_test_fixtures_simple_css_wooga",
   ],
 }
 `;
 
-exports[`/processor.js options namer should use a custom naming function 4`] = `".packages_core_test_specimens_simple_css_wooga { }"`;
+exports[`/processor.js options namer should use a custom naming function 4`] = `".packages_core_test_fixtures_simple_css_wooga { }"`;
 
 exports[`/processor.js options namer should use the default naming function if a non-function is passed 1`] = `
 Object {
   "wooga": Array [
-    "mcb251c446_wooga",
+    "mce31884e4_wooga",
   ],
 }
 `;
 
 exports[`/processor.js options rewrite should not rewrite url() references when falsey 1`] = `
-"/* packages/core/test/specimens/rewrite.css */
-.mc628d01b8_a {
+"/* fixtures/rewrite.css */
+.mca5cd6948_a {
     background: url(\\"img.png\\");
 }"
 `;
 
 exports[`/processor.js options rewrite should pass through to postcss-url as config 1`] = `
-"/* packages/core/test/specimens/rewrite.css */
-.mc628d01b8_a {
+"/* fixtures/rewrite-data-uri.css */
+.mcb65b22bc_a {
     background: url(\\"data:image/png;base64,iVBORwoaCgAAAA1JSERSAAAACgAAAAoIAgAAAAJQWOoAAAABc1JHQgCuzhzpAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xOdTWsmQAAAAOSURBVChTYxgFJAMGBgABNgABY8OiGAAAAABJRU5ErkJggg==\\");
-}"
+}
+"
 `;
 
 exports[`/processor.js options rewrite should rewrite url() references by default 1`] = `
-"/* packages/core/test/specimens/rewrite.css */
-.mc628d01b8_a {
-    background: url(\\"../specimens/img.png\\");
+"/* fixtures/rewrite.css */
+.mca5cd6948_a {
+    background: url(\\"../fixtures/img.png\\");
 }"
 `;

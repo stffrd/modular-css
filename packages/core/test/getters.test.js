@@ -1,9 +1,10 @@
 "use strict";
 
-var namer    = require("test-utils/namer.js"),
-    relative = require("test-utils/relative.js"),
-    
-    Processor = require("../processor.js");
+const namer    = require("test-utils/namer.js");
+const relative = require("test-utils/relative.js");
+const { find } = require("test-utils/fixtures.js");
+
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("getters", () => {
@@ -16,24 +17,21 @@ describe("/processor.js", () => {
         });
         
         describe(".file", () => {
-            it("should return all the files that have been added", () =>
-                processor.file(
-                    "./packages/core/test/specimens/start.css"
+            it("should return all the files that have been added", async () => {
+                await processor.file(find("start.css"));
+                await processor.file(find("local.css"));
+                
+                expect(
+                    relative(Object.keys(processor.files))
                 )
-                .then(() => processor.file("./packages/core/test/specimens/local.css"))
-                .then(() =>
-                    expect(
-                        relative(Object.keys(processor.files))
-                    )
-                    .toMatchSnapshot()
-                )
-            );
+                .toMatchSnapshot();
+            });
         });
 
         describe(".options", () => {
-            it("should return the merged options object", () =>
-                expect(typeof processor.options).toBe("object")
-            );
+            it("should return the merged options object", () => {
+                expect(typeof processor.options).toBe("object");
+            });
         });
     });
 });

@@ -1,9 +1,9 @@
 "use strict";
 
-var dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
-    
-    Processor = require("../processor.js");
+const dedent = require("dedent");
+const namer  = require("test-utils/namer.js");
+
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("scoping", () => {
@@ -15,8 +15,8 @@ describe("/processor.js", () => {
             });
         });
 
-        it("should scope classes, ids, and keyframes", () =>
-            processor.string(
+        it("should scope classes, ids, and keyframes", async () => {
+            const result = await processor.string(
                 "./simple.css",
                 dedent(`
                     @keyframes kooga { }
@@ -25,19 +25,17 @@ describe("/processor.js", () => {
                     .one,
                     .two { }
                 `)
-            )
-            .then((result) => {
-                expect(result.exports).toMatchSnapshot();
+            );
 
-                return processor.output();
-            })
-            .then((output) =>
-                expect(output.css).toMatchSnapshot()
-            )
-        );
+            expect(result.exports).toMatchSnapshot();
 
-        it("should handle pseudo classes correctly", () =>
-            processor.string(
+            const output = await processor.output();
+
+            expect(output.css).toMatchSnapshot();
+        });
+
+        it("should handle pseudo classes correctly", async () => {
+            const result = await processor.string(
                 "./simple.css",
                 dedent(`
                     :global(.g1) {}
@@ -46,51 +44,46 @@ describe("/processor.js", () => {
                     .d:hover {}
                     .e:not(.e) {}
                 `)
-            )
-            .then((result) => {
-                expect(result.exports).toMatchSnapshot();
+            );
 
-                return processor.output();
-            })
-            .then((output) =>
-                expect(output.css).toMatchSnapshot()
-            )
-        );
+            expect(result.exports).toMatchSnapshot();
 
-        it("should not allow :global classes to overlap with local ones (local before global)", () =>
-            processor.string(
+            const output = await processor.output();
+            
+            expect(output.css).toMatchSnapshot();
+        });
+
+        it("should not allow :global classes to overlap with local ones (local before global)", async () => {
+            await expect(processor.string(
                 "./invalid/global.css",
                 dedent(`
                     .a {}
                     :global(.a) {}
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`Unable to re-use the same selector for global & local`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`Unable to re-use the same selector for global & local`),
+            });
+        });
 
-        it("should not allow :global classes to overlap with local ones (global before local)", () =>
-            processor.string(
+        it("should not allow :global classes to overlap with local ones (global before local)", async () => {
+            await expect(processor.string(
                 "./invalid/global.css",
                 dedent(`
                     :global(.a) {}
                     .a {}
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`Unable to re-use the same selector for global & local`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`Unable to re-use the same selector for global & local`),
+            });
+        });
 
-        it("should not allow empty :global() selectors", () =>
-            processor.string(
+        it("should not allow empty :global() selectors", async () => {
+            await expect(processor.string(
                 "./invalid/global.css",
                 ".a :global() { }"
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`:global(...) must not be empty`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`:global(...) must not be empty`),
+            });
+        });
     });
 });

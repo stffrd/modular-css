@@ -1,9 +1,10 @@
 "use strict";
 
-var dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
-    
-    Processor = require("../processor.js");
+const dedent = require("dedent");
+const namer  = require("test-utils/namer.js");
+const { find } = require("test-utils/fixtures.js");
+
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("externals", () => {
@@ -15,45 +16,41 @@ describe("/processor.js", () => {
             });
         });
         
-        it("should fail if not a valid composition reference", () =>
-            processor.string(
+        it("should fail if not a valid composition reference", async () => {
+            await expect(processor.string(
                 "./invalid-external.css",
                 dedent(`
                     :external(some garbage here) { }
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`SyntaxError: Expected`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`SyntaxError: Expected`),
+            });
+        });
 
-        it("should fail if not referencing another file", () =>
-            processor.string(
+        it("should fail if not referencing another file", async () => {
+            await expect(processor.string(
                 "./invalid-external.css",
                 dedent(`
                     :external(a) { }
                 `)
-            )
-            .catch((error) =>
-                expect(error.message).toMatch(`externals must be from another file`)
-            )
-        );
+            )).rejects.toMatchObject({
+                message : expect.stringContaining(`externals must be from another file`),
+            });
+        });
 
-        it("should fail on bad class references", () =>
-            processor.file(require.resolve("./specimens/externals-invalid.css"))
-            .catch((error) =>
-                expect(error.message).toMatch(`Invalid external reference: nopenopenope`)
-            )
-        );
+        it("should fail on bad class references", async () => {
+            await expect(processor.file(find("externals-invalid.css"))).rejects.toMatchObject({
+                message : expect.stringContaining(`Invalid external reference: nopenopenope`),
+            });
+        });
         
-        it("should support overriding external values", () =>
-            processor.file(
-                "./packages/core/test/specimens/externals.css"
-            )
-            .then(() => processor.output())
-            .then((result) =>
-                expect(result.css).toMatchSnapshot()
-            )
-        );
+        it("should support overriding external values", async () => {
+            await processor.file(find("externals.css"));
+                
+            const result = await processor.output();
+            
+
+            expect(result.css).toMatchSnapshot();
+        });
     });
 });

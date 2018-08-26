@@ -1,8 +1,9 @@
 "use strict";
 
-var namer  = require("test-utils/namer.js"),
+const namer = require("test-utils/namer.js");
+const { find } = require("test-utils/fixtures.js");
     
-    Processor = require("../processor.js");
+const Processor = require("../processor.js");
 
 describe("/processor.js", () => {
     describe("unicode", () => {
@@ -14,16 +15,14 @@ describe("/processor.js", () => {
             });
         });
 
-        it("should support unicode classes & ids", () =>
-            processor.file(
-                require.resolve("./specimens/unicode.css")
-            )
-            .then(() => processor.output({
-                to : "./packages/core/test/output/unicode.css",
-            }))
-            .then((output) =>
-                expect(output.css).toMatchSnapshot()
-            )
-        );
+        it("should support unicode classes & ids", async () => {
+            await processor.file(find("unicode.css"));
+                
+            const output = await processor.output({
+                to : "./output/unicode.css",
+            });
+
+            expect(output.css).toMatchSnapshot();
+        });
     });
 });

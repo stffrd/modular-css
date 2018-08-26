@@ -1,6 +1,6 @@
 @value localCss: "./local.css";
 
-.a :external(wooga from "./simple.css") {
+.a :external(fooga from "./simple.css") {
     color: green;
 }
 
@@ -8,6 +8,6 @@
     background: blue;
 }
 
-:external(wooga from "./simple.css") :external(booga from localCss) {
+:external(fooga from "./simple.css") :external(booga from localCss) {
     color: red;
 }
