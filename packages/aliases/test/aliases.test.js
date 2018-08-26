@@ -1,6 +1,6 @@
 "use strict";
 
-const { dedent } = require("dentist");
+const dedent = require("dedent");
     
 const Processor = require("modular-css-core");
 const namer = require("test-utils/namer.js");
