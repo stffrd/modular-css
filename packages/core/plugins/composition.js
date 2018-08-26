@@ -14,10 +14,8 @@ const plugin = "modular-css-composition";
 
 // Loop through all previous nodes in the container to ensure
 // that composes (or a comment) comes first
-function composesFirst(decl) {
-    var prev;
-
-    prev = decl.prev();
+const composesFirst = (decl) => {
+    let prev = decl.prev();
 
     while(prev) {
         if(prev.type !== "comment") {
@@ -26,22 +24,22 @@ function composesFirst(decl) {
 
         prev = prev.prev();
     }
-}
+};
 
 module.exports = (css, result) => {
-    var refs  = message(result, "classes"),
-        map   = invert(refs),
-        { opts } = result,
-        graph = new Graph(),
-        out   = Object.assign(Object.create(null), refs);
+    const refs  = message(result, "classes");
+    const map   = invert(refs);
+    const { opts } = result;
+    const graph = new Graph();
+    const out   = Object.assign(Object.create(null), refs);
     
     Object.keys(refs).forEach((key) => graph.addNode(key));
 
     // Go look up "composes" declarations and populate dependency graph
     css.walkDecls("composes", (decl) => {
         /* eslint max-statements: "off" */
-        var details   = parser.parse(decl.value),
-            selectors = decl.parent.selectors.map(identifiers.parse);
+        const details   = parser.parse(decl.value);
+        const selectors = decl.parent.selectors.map(identifiers.parse);
 
         composesFirst(decl);
 
@@ -59,7 +57,7 @@ module.exports = (css, result) => {
 
         // Add references and update graph
         details.refs.forEach((ref) => {
-            var scoped;
+            let scoped;
                 
             if(ref.global) {
                 scoped = `global-${ref.name}`;
