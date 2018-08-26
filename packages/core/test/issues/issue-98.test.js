@@ -1,31 +1,31 @@
 "use strict";
 
-var dedent = require("dedent"),
-    namer  = require("test-utils/namer.js"),
+const dedent = require("dedent");
+const namer  = require("test-utils/namer.js");
     
-    Processor = require("../../processor.js");
+const Processor = require("../../processor.js");
 
 describe("/issues", () => {
     describe("/98", () => {
-        it("should prune rules that only compose, but leave them in the exports", () => {
-            var processor = new Processor({
-                    namer,
-                });
+        it("should prune rules that only compose, but leave them in the exports", async () => {
+            const processor = new Processor({
+                namer,
+            });
             
-            return processor.string(
-                "./packages/core/test/specimens/issues/98.css",
+            const result = await processor.string(
+                "./fixtures/issues/98.css",
                 dedent(`
                     .booga { color: red }
                     .fooga { composes: booga }
                     .fooga + .fooga { color: blue }
                 `)
-            )
-            .then((result) => {
-                expect(result.exports).toMatchSnapshot();
+            );
 
-                return processor.output();
-            })
-            .then((result) => expect(result.css).toMatchSnapshot());
+            expect(result.exports).toMatchSnapshot();
+
+            const output = await processor.output();
+            
+            expect(output.css).toMatchSnapshot();
         });
     });
 });

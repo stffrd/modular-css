@@ -1,34 +1,35 @@
 "use strict";
 
-var fs = require("fs"),
+const fs = require("fs");
     
-    namer = require("test-utils/namer.js"),
+const namer = require("test-utils/namer.js");
+const { find, temp } = require("test-utils/fixtures.js");
 
-    Processor = require("../../processor.js");
+const Processor = require("../../processor.js");
 
 describe("/issues", () => {
     describe("/191", () => {
         var fn = it;
         
-        afterAll(() => require("shelljs").rm("-rf", "./packages/core/test/output/sensitive.txt"));
-
         // Verify that filesystem is case-insensitive before bothering
-        fs.writeFileSync("./packages/core/test/output/sensitive.txt");
+        fs.writeFileSync(temp("sensitive.txt"));
 
         try {
-            fs.statSync("./packages/core/test/output/SENSITIVE.txt");
+            fs.statSync(temp("SENSITIVE.txt"));
         } catch(e) {
             fn = it.skip;
         }
 
-        fn("should ignore case differences in file paths", () => {
-            var processor = new Processor({
-                    namer,
-                });
+        fn("should ignore case differences in file paths", async () => {
+            const processor = new Processor({
+                namer,
+            });
             
-            return processor.file(require.resolve("./specimens/191/start.css"))
-                .then(() => processor.output())
-                .then((result) => expect(result.css).toMatchSnapshot());
+            await processor.file(find("191/start.css"));
+
+            const result = await processor.output();
+            
+            expect(result.css).toMatchSnapshot();
         });
     });
 });

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`/issues /261 should allow colons in rules that also use :external() 1`] = `
-"/* packages/core/test/issues/specimens/261/1.css */
-.mcaafb0c20_a {
+"/* fixtures/261/1.css */
+.mc41b23944_a {
     color: red;
 }
-/* packages/core/test/issues/specimens/261/2.css */
-.mcdbec3a1b_b:hover .mcaafb0c20_a {
+/* fixtures/261/2.css */
+.mce1b3e096_b:hover .mc41b23944_a {
     color: blue;
 }
 "
