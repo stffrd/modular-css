@@ -25,7 +25,7 @@ describe("/issues", () => {
                 namer,
             });
             
-            await processor.file(find("191/start.css"));
+            await processor.file(find("191.css"));
 
             const result = await processor.output();
             
