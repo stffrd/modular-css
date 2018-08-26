@@ -5,7 +5,7 @@ const Processor = require("modular-css-core");
 const markup = require("./src/markup.js");
 const style = require("./src/style.js");
 
-module.exports = function(args) {
+module.exports = (args) => {
     const config = Object.assign(
         Object.create(null),
         { strict : false },

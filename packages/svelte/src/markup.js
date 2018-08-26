@@ -10,7 +10,7 @@ const scriptRegex = /<script[\S\s]*?>([\S\s]*?)<\/script>/im;
 const linkRegex = /<link\b[^<>]*?\bhref=\s*(?:"([^"]+)"|'([^']+)'|([^>\s]+))[^>]*>/im;
 const missedRegex = /css\.\w+/gim;
 
-function updateCss({ processor, content, result, filename }) {
+const updateCss = ({ processor, content, result, filename }) => {
     const exported = result.files[result.file].exports;
 
     const code = content
@@ -44,9 +44,9 @@ function updateCss({ processor, content, result, filename }) {
     return {
         code,
     };
-}
+};
 
-async function extractLink({ processor, content, filename, link }) {
+const extractLink = async ({ processor, content, filename, link }) => {
     // This looks weird, but it's to support multiple types of quotation marks
     const href = link[1] || link[2] || link[3];
     
@@ -90,9 +90,9 @@ async function extractLink({ processor, content, filename, link }) {
         result,
         filename : href,
     });
-}
+};
 
-async function extractStyle({ processor, content, filename, style }) {
+const extractStyle = async ({ processor, content, filename, style }) => {
     const result = await processor.string(
         filename,
         style[1]
@@ -104,7 +104,7 @@ async function extractStyle({ processor, content, filename, style }) {
         result,
         filename : "<style>",
     });
-}
+};
 
 module.exports = (processor) => ({ content, filename }) => {
     const link = content.match(linkRegex);
