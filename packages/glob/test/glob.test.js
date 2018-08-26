@@ -1,39 +1,51 @@
 "use strict";
 
-var namer = require("test-utils/namer.js"),
+const namer = require("test-utils/namer.js");
 
-    glob = require("../glob.js");
+const glob = require("../glob.js");
 
 describe("/glob.js", () => {
     it("should be a function", () => {
         expect(typeof glob).toBe("function");
     });
 
-    it("should use a default search", () => glob({
+    it("should use a default search", async () => {
+        const processor = await glob({
             namer,
-            cwd : "./packages/glob/test/specimens",
-        })
-        .then((processor) => processor.output())
-        .then((output) => expect(output.css).toMatchSnapshot()));
+            cwd : "./fixtures/glob",
+        });
 
-    it("should find files on disk & output css", () => glob({
+        const output = await processor.output();
+
+        expect(output.css).toMatchSnapshot();
+    });
+
+    it("should find files on disk & output css", async () => {
+        const processor = await glob({
             namer,
-            cwd    : "./packages/glob/test/specimens",
+            cwd    : "./fixtures/glob",
             search : [
                 "**/*.css",
             ],
-        })
-        .then((processor) => processor.output())
-        .then((output) => expect(output.css).toMatchSnapshot()));
+        });
 
-    it("should support exclusion patterns", () => glob({
+        const output = await processor.output();
+
+        expect(output.css).toMatchSnapshot();
+    });
+
+    it("should support exclusion patterns", async () => {
+        const processor = await glob({
             namer,
-            cwd    : "./packages/glob/test/specimens",
+            cwd    : "./fixtures/glob",
             search : [
                 "**/*.css",
                 "!**/exclude/**",
             ],
-        })
-        .then((processor) => processor.output())
-        .then((output) => expect(output.css).toMatchSnapshot()));
+        });
+
+        const output = await processor.output();
+
+        expect(output.css).toMatchSnapshot();
+    });
 });
