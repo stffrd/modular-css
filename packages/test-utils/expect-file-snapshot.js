@@ -9,7 +9,6 @@ expect.extend({
         return toMatchSnapshot.call(
             this,
             fs.readFileSync(source, "utf8"),
-            "toMatchFileSnapshot"
         );
     },
 });
