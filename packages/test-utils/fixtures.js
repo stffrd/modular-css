@@ -25,7 +25,8 @@ exports.find = (search) => {
         throw new Error(`Multiple fixtures found, ${results.join(", ")}`);
     }
 
-    return results[0];
+    // The resolve is to ensure the separators make sense, globby always returns /
+    return path.resolve(results[0]);
 };
 
 let dir;
