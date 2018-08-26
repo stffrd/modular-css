@@ -15,7 +15,6 @@ module.exports = {
     ],
 
     watchPathIgnorePatterns : [
-        "/output/",
-        "/specimens/",
+        "/records/",
     ],
 };
