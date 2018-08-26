@@ -606,7 +606,21 @@ exports[`/webpack.js should generate correct builds when files change 6`] = `
 `;
 
 exports[`/webpack.js should handle dependencies 1`] = `
-"/******/ (function(modules) { // webpackBootstrap
+Array [
+  Object {
+    "file": "output.css",
+    "text": "/* fixtures/folder/folder.css */
+.folder { margin: 2px; }
+/* fixtures/local.css */
+.booga { background: green; }
+/* fixtures/start.css */
+.booga { color: red; background: blue; }
+.tooga { border: 1px solid white; }
+",
+  },
+  Object {
+    "file": "output.js",
+    "text": "/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -689,61 +703,50 @@ exports[`/webpack.js should handle dependencies 1`] = `
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/start.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/start.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/start.css\\":
-/*!***************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/start.css ***!
-  \\\\***************************************************/
+/***/ \\"./fixtures/start.css\\":
+/*!****************************!*\\\\
+  !*** ./fixtures/start.css ***!
+  \\\\****************************/
 /*! exports provided: default, one, two, folder, wooga, booga, tooga */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"one\\\\\\", function() { return one; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"two\\\\\\", function() { return two; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"folder\\\\\\", function() { return folder; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"wooga\\\\\\", function() { return wooga; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"booga\\\\\\", function() { return booga; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"tooga\\\\\\", function() { return tooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"one\\\\\\": \\\\\\"red\\\\\\",\\\\n    \\\\\\"two\\\\\\": \\\\\\"blue\\\\\\",\\\\n    \\\\\\"folder\\\\\\": \\\\\\"white\\\\\\",\\\\n    \\\\\\"wooga\\\\\\": \\\\\\"booga wooga\\\\\\",\\\\n    \\\\\\"booga\\\\\\": \\\\\\"booga\\\\\\",\\\\n    \\\\\\"tooga\\\\\\": \\\\\\"tooga\\\\\\"\\\\n});\\\\nvar one = \\\\\\"red\\\\\\";\\\\nvar two = \\\\\\"blue\\\\\\";\\\\nvar folder = \\\\\\"white\\\\\\";\\\\nvar wooga = \\\\\\"booga wooga\\\\\\";\\\\nvar booga = \\\\\\"booga\\\\\\";\\\\nvar tooga = \\\\\\"tooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/start.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"one\\\\\\", function() { return one; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"two\\\\\\", function() { return two; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"folder\\\\\\", function() { return folder; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"wooga\\\\\\", function() { return wooga; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"booga\\\\\\", function() { return booga; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"tooga\\\\\\", function() { return tooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"one\\\\\\": \\\\\\"red\\\\\\",\\\\n    \\\\\\"two\\\\\\": \\\\\\"blue\\\\\\",\\\\n    \\\\\\"folder\\\\\\": \\\\\\"white\\\\\\",\\\\n    \\\\\\"wooga\\\\\\": \\\\\\"booga wooga\\\\\\",\\\\n    \\\\\\"booga\\\\\\": \\\\\\"booga\\\\\\",\\\\n    \\\\\\"tooga\\\\\\": \\\\\\"tooga\\\\\\"\\\\n});\\\\nvar one = \\\\\\"red\\\\\\";\\\\nvar two = \\\\\\"blue\\\\\\";\\\\nvar folder = \\\\\\"white\\\\\\";\\\\nvar wooga = \\\\\\"booga wooga\\\\\\";\\\\nvar booga = \\\\\\"booga\\\\\\";\\\\nvar tooga = \\\\\\"tooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./fixtures/start.css?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/start.js\\":
-/*!**************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/start.js ***!
-  \\\\**************************************************/
+/***/ \\"./fixtures/start.js\\":
+/*!***************************!*\\\\
+  !*** ./fixtures/start.js ***!
+  \\\\***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval(\\"__webpack_require__(/*! ./start.css */ \\\\\\"./packages/webpack/test/specimens/start.css\\\\\\");\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/start.js?\\");
+eval(\\"__webpack_require__(/*! ./start.css */ \\\\\\"./fixtures/start.css\\\\\\");\\\\r\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/start.js?\\");
 
 /***/ })
 
-/******/ });"
-`;
-
-exports[`/webpack.js should handle dependencies 2`] = `
-"/* packages/webpack/test/specimens/folder/folder.css */
-.folder { margin: 2px; }
-/* packages/webpack/test/specimens/local.css */
-.booga { background: green; }
-/* packages/webpack/test/specimens/start.css */
-.booga { color: red; background: blue; }
-.tooga { border: 1px solid white; }
-"
-`;
-
-exports[`/webpack.js should handle dependencies 3`] = `
-"{
-    \\"packages/webpack/test/specimens/folder/folder.css\\": {
+/******/ });",
+  },
+  Object {
+    "file": "output.json",
+    "text": "{
+    \\"fixtures/folder/folder.css\\": {
         \\"folder\\": \\"folder\\"
     },
-    \\"packages/webpack/test/specimens/local.css\\": {
+    \\"fixtures/local.css\\": {
         \\"folder\\": \\"white\\",
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"booga\\": \\"booga\\",
         \\"looga\\": \\"booga looga\\"
     },
-    \\"packages/webpack/test/specimens/start.css\\": {
+    \\"fixtures/start.css\\": {
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"folder\\": \\"white\\",
@@ -751,11 +754,24 @@ exports[`/webpack.js should handle dependencies 3`] = `
         \\"booga\\": \\"booga\\",
         \\"tooga\\": \\"tooga\\"
     }
-}"
+}",
+  },
+]
 `;
 
 exports[`/webpack.js should output css to disk 1`] = `
-"/******/ (function(modules) { // webpackBootstrap
+Array [
+  Object {
+    "file": "output.css",
+    "text": "/* fixtures/simple.css */
+.fooga {
+    color: red;
+}
+",
+  },
+  Object {
+    "file": "output.js",
+    "text": "/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -838,54 +854,64 @@ exports[`/webpack.js should output css to disk 1`] = `
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/simple.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/simple.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/simple.css\\":
-/*!****************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.css ***!
-  \\\\****************************************************/
-/*! exports provided: default, wooga */
+/***/ \\"./fixtures/simple.css\\":
+/*!*****************************!*\\\\
+  !*** ./fixtures/simple.css ***!
+  \\\\*****************************/
+/*! exports provided: default, str, fooga */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"wooga\\\\\\", function() { return wooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"wooga\\\\\\": \\\\\\"wooga\\\\\\"\\\\n});\\\\nvar wooga = \\\\\\"wooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"str\\\\\\", function() { return str; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"fooga\\\\\\", function() { return fooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"str\\\\\\": \\\\\\"\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"fooga\\\\\\": \\\\\\"fooga\\\\\\"\\\\n});\\\\nvar str = \\\\\\"\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\"\\\\\\";\\\\nvar fooga = \\\\\\"fooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.css?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/simple.js\\":
-/*!***************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.js ***!
-  \\\\***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ \\"./fixtures/simple.js\\":
+/*!****************************!*\\\\
+  !*** ./fixtures/simple.js ***!
+  \\\\****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval(\\"__webpack_require__(/*! ./simple.css */ \\\\\\"./packages/webpack/test/specimens/simple.css\\\\\\");\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.js?\\");
+\\"use strict\\";
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _simple_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simple.css */ \\\\\\"./fixtures/simple.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_simple_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"default\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.js?\\");
 
 /***/ })
 
-/******/ });"
+/******/ });",
+  },
+]
 `;
 
-exports[`/webpack.js should output css to disk 2`] = `
-"/* packages/webpack/test/specimens/simple.css */
-.wooga { color: red; }
-"
-`;
-
-exports[`/webpack.js should output external source maps to disk 1`] = `"{\\"version\\":3,\\"sources\\":[\\"packages/webpack/test/specimens/simple.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,gDAAC;AAAD,SAAS,WAAW,EAAE\\",\\"file\\":\\"output.css\\",\\"sourcesContent\\":[\\".wooga { color: red; }\\\\n\\"]}"`;
+exports[`/webpack.js should output external source maps to disk 1`] = `"{\\"version\\":3,\\"sources\\":[\\"fixtures/simple.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,yBAAC;AAED;IACI,WAAW;CACd\\",\\"file\\":\\"output.css\\",\\"sourcesContent\\":[\\"@value str: \\\\\\"string\\\\\\";\\\\n\\\\n.fooga {\\\\n    color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`/webpack.js should output inline source maps 1`] = `
-"/* packages/webpack/test/specimens/simple.css */
-.wooga { color: red; }
+"/* fixtures/simple.css */
+.fooga {
+    color: red;
+}
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhY2thZ2VzL3dlYnBhY2svdGVzdC9zcGVjaW1lbnMvc2ltcGxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnREFBQztBQUFELFNBQVMsV0FBVyxFQUFFIiwiZmlsZSI6Im91dHB1dC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud29vZ2EgeyBjb2xvcjogcmVkOyB9XG4iXX0= */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL3NpbXBsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEseUJBQUM7QUFFRDtJQUNJLFdBQVc7Q0FDZCIsImZpbGUiOiJvdXRwdXQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIHN0cjogXCJzdHJpbmdcIjtcblxuLmZvb2dhIHtcbiAgICBjb2xvcjogcmVkO1xufVxuIl19 */"
 `;
 
 exports[`/webpack.js should output json to disk 1`] = `
-"/******/ (function(modules) { // webpackBootstrap
+Array [
+  Object {
+    "file": "output.css",
+    "text": "/* fixtures/simple.css */
+.fooga {
+    color: red;
+}
+",
+  },
+  Object {
+    "file": "output.js",
+    "text": "/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -968,47 +994,61 @@ exports[`/webpack.js should output json to disk 1`] = `
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/simple.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/simple.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/simple.css\\":
-/*!****************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.css ***!
-  \\\\****************************************************/
-/*! exports provided: default, wooga */
+/***/ \\"./fixtures/simple.css\\":
+/*!*****************************!*\\\\
+  !*** ./fixtures/simple.css ***!
+  \\\\*****************************/
+/*! exports provided: default, str, fooga */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"wooga\\\\\\", function() { return wooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"wooga\\\\\\": \\\\\\"wooga\\\\\\"\\\\n});\\\\nvar wooga = \\\\\\"wooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"str\\\\\\", function() { return str; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"fooga\\\\\\", function() { return fooga; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"str\\\\\\": \\\\\\"\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"fooga\\\\\\": \\\\\\"fooga\\\\\\"\\\\n});\\\\nvar str = \\\\\\"\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\"\\\\\\";\\\\nvar fooga = \\\\\\"fooga\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.css?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/simple.js\\":
-/*!***************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.js ***!
-  \\\\***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ \\"./fixtures/simple.js\\":
+/*!****************************!*\\\\
+  !*** ./fixtures/simple.js ***!
+  \\\\****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval(\\"__webpack_require__(/*! ./simple.css */ \\\\\\"./packages/webpack/test/specimens/simple.css\\\\\\");\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.js?\\");
+\\"use strict\\";
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _simple_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simple.css */ \\\\\\"./fixtures/simple.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_simple_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"default\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.js?\\");
 
 /***/ })
 
-/******/ });"
-`;
-
-exports[`/webpack.js should output json to disk 2`] = `
-"{
-    \\"packages/webpack/test/specimens/simple.css\\": {
-        \\"wooga\\": \\"wooga\\"
+/******/ });",
+  },
+  Object {
+    "file": "output.json",
+    "text": "{
+    \\"fixtures/simple.css\\": {
+        \\"str\\": \\"\\\\\\"string\\\\\\"\\",
+        \\"fooga\\": \\"fooga\\"
     }
-}"
+}",
+  },
+]
 `;
 
 exports[`/webpack.js should support ES2015 default exports 1`] = `
-"/******/ (function(modules) { // webpackBootstrap
+Array [
+  Object {
+    "file": "output.css",
+    "text": "/* fixtures/es2015.css */
+.a { color: red; }
+.b { color: blue; }
+",
+  },
+  Object {
+    "file": "output.js",
+    "text": "/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -1091,47 +1131,52 @@ exports[`/webpack.js should support ES2015 default exports 1`] = `
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/es2015-default.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/es2015-default.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/es2015-default.js\\":
-/*!***********************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/es2015-default.js ***!
-  \\\\***********************************************************/
+/***/ \\"./fixtures/es2015-default.js\\":
+/*!************************************!*\\\\
+  !*** ./fixtures/es2015-default.js ***!
+  \\\\************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _es2015_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./es2015.css */ \\\\\\"./packages/webpack/test/specimens/es2015.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"default\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/es2015-default.js?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _es2015_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./es2015.css */ \\\\\\"./fixtures/es2015.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"default\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/es2015-default.js?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/es2015.css\\":
-/*!****************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/es2015.css ***!
-  \\\\****************************************************/
+/***/ \\"./fixtures/es2015.css\\":
+/*!*****************************!*\\\\
+  !*** ./fixtures/es2015.css ***!
+  \\\\*****************************/
 /*! exports provided: default, val, a, b */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"val\\\\\\", function() { return val; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"a\\\\\\", function() { return a; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"b\\\\\\", function() { return b; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"val\\\\\\": \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"a\\\\\\": \\\\\\"a\\\\\\",\\\\n    \\\\\\"b\\\\\\": \\\\\\"b\\\\\\"\\\\n});\\\\nvar val = \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\";\\\\nvar a = \\\\\\"a\\\\\\";\\\\nvar b = \\\\\\"b\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/es2015.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"val\\\\\\", function() { return val; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"a\\\\\\", function() { return a; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"b\\\\\\", function() { return b; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"val\\\\\\": \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"a\\\\\\": \\\\\\"a\\\\\\",\\\\n    \\\\\\"b\\\\\\": \\\\\\"b\\\\\\"\\\\n});\\\\nvar val = \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\";\\\\nvar a = \\\\\\"a\\\\\\";\\\\nvar b = \\\\\\"b\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./fixtures/es2015.css?\\");
 
 /***/ })
 
-/******/ });"
-`;
-
-exports[`/webpack.js should support ES2015 default exports 2`] = `
-"/* packages/webpack/test/specimens/es2015.css */
-.a { color: red; }
-.b { color: blue; }
-"
+/******/ });",
+  },
+]
 `;
 
 exports[`/webpack.js should support ES2015 named exports 1`] = `
-"/******/ (function(modules) { // webpackBootstrap
+Array [
+  Object {
+    "file": "output.css",
+    "text": "/* fixtures/es2015.css */
+.a { color: red; }
+.b { color: blue; }
+",
+  },
+  Object {
+    "file": "output.js",
+    "text": "/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -1214,43 +1259,38 @@ exports[`/webpack.js should support ES2015 named exports 1`] = `
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/es2015-named.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/es2015-named.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/es2015-named.js\\":
-/*!*********************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/es2015-named.js ***!
-  \\\\*********************************************************/
+/***/ \\"./fixtures/es2015-named.js\\":
+/*!**********************************!*\\\\
+  !*** ./fixtures/es2015-named.js ***!
+  \\\\**********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _es2015_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./es2015.css */ \\\\\\"./packages/webpack/test/specimens/es2015.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"a\\\\\\"], _es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"val\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/es2015-named.js?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _es2015_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./es2015.css */ \\\\\\"./fixtures/es2015.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"a\\\\\\"], _es2015_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"val\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/es2015-named.js?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/es2015.css\\":
-/*!****************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/es2015.css ***!
-  \\\\****************************************************/
+/***/ \\"./fixtures/es2015.css\\":
+/*!*****************************!*\\\\
+  !*** ./fixtures/es2015.css ***!
+  \\\\*****************************/
 /*! exports provided: default, val, a, b */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"val\\\\\\", function() { return val; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"a\\\\\\", function() { return a; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"b\\\\\\", function() { return b; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"val\\\\\\": \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"a\\\\\\": \\\\\\"a\\\\\\",\\\\n    \\\\\\"b\\\\\\": \\\\\\"b\\\\\\"\\\\n});\\\\nvar val = \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\";\\\\nvar a = \\\\\\"a\\\\\\";\\\\nvar b = \\\\\\"b\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/es2015.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"val\\\\\\", function() { return val; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"a\\\\\\", function() { return a; });\\\\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\\\\\"b\\\\\\", function() { return b; });\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"val\\\\\\": \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"a\\\\\\": \\\\\\"a\\\\\\",\\\\n    \\\\\\"b\\\\\\": \\\\\\"b\\\\\\"\\\\n});\\\\nvar val = \\\\\\"\\\\\\\\\\\\\\"value\\\\\\\\\\\\\\"\\\\\\";\\\\nvar a = \\\\\\"a\\\\\\";\\\\nvar b = \\\\\\"b\\\\\\";\\\\n\\\\n//# sourceURL=webpack:///./fixtures/es2015.css?\\");
 
 /***/ })
 
-/******/ });"
-`;
-
-exports[`/webpack.js should support ES2015 named exports 2`] = `
-"/* packages/webpack/test/specimens/es2015.css */
-.a { color: red; }
-.b { color: blue; }
-"
+/******/ });",
+  },
+]
 `;
 
 exports[`/webpack.js should support disabling namedExports when the option is set 1`] = `
@@ -1337,31 +1377,32 @@ exports[`/webpack.js should support disabling namedExports when the option is se
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = \\"./packages/webpack/test/specimens/simple.js\\");
+/******/ 	return __webpack_require__(__webpack_require__.s = \\"./fixtures/simple.js\\");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ \\"./packages/webpack/test/specimens/simple.css\\":
-/*!****************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.css ***!
-  \\\\****************************************************/
+/***/ \\"./fixtures/simple.css\\":
+/*!*****************************!*\\\\
+  !*** ./fixtures/simple.css ***!
+  \\\\*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 \\"use strict\\";
-eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"wooga\\\\\\": \\\\\\"wooga\\\\\\"\\\\n});\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.css?\\");
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony default export */ __webpack_exports__[\\\\\\"default\\\\\\"] = ({\\\\n    \\\\\\"str\\\\\\": \\\\\\"\\\\\\\\\\\\\\"string\\\\\\\\\\\\\\"\\\\\\",\\\\n    \\\\\\"fooga\\\\\\": \\\\\\"fooga\\\\\\"\\\\n});\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.css?\\");
 
 /***/ }),
 
-/***/ \\"./packages/webpack/test/specimens/simple.js\\":
-/*!***************************************************!*\\\\
-  !*** ./packages/webpack/test/specimens/simple.js ***!
-  \\\\***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ \\"./fixtures/simple.js\\":
+/*!****************************!*\\\\
+  !*** ./fixtures/simple.js ***!
+  \\\\****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval(\\"__webpack_require__(/*! ./simple.css */ \\\\\\"./packages/webpack/test/specimens/simple.css\\\\\\");\\\\n\\\\n\\\\n//# sourceURL=webpack:///./packages/webpack/test/specimens/simple.js?\\");
+\\"use strict\\";
+eval(\\"__webpack_require__.r(__webpack_exports__);\\\\n/* harmony import */ var _simple_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./simple.css */ \\\\\\"./fixtures/simple.css\\\\\\");\\\\n\\\\n\\\\nconsole.log(_simple_css__WEBPACK_IMPORTED_MODULE_0__[\\\\\\"default\\\\\\"]);\\\\n\\\\n\\\\n//# sourceURL=webpack:///./fixtures/simple.js?\\");
 
 /***/ })
 

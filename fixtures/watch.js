@@ -1,4 +1,4 @@
-import css from "../output/watched.css";
-import css2 from "./simple.css";
+import css from "./watched.css";
+import css2 from "./one.css";
 
 console.log(css, css2);
