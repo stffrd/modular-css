@@ -24,13 +24,13 @@ describe("/rollup.js", () => {
         
         it("should generate updated output", (done) => {
             // Create v1 of the files
-            write(temp("watched.css"), `
+            write("watched.css", `
                 .one {
                     color: red;
                 }
             `);
 
-            write(temp("watched.js"), `
+            write("watched.js", `
                 import css from "./watched.css";
                 console.log(css);
             `);
@@ -55,7 +55,7 @@ describe("/rollup.js", () => {
                 if(builds === 1) {
                     expect(temp("assets/output.css")).toMatchFileSnapshot();
 
-                    setTimeout(() => write(temp("watched.css"), `
+                    setTimeout(() => write("watched.css", `
                         .two {
                             color: blue;
                         }
@@ -73,7 +73,7 @@ describe("/rollup.js", () => {
 
         it("should generate updated output for composes changes", (done) => {
             // Create v1 of the files
-            write(temp("watched.css"), `
+            write("watched.css", `
                 .one {
                     color: red;
                 }
@@ -88,7 +88,7 @@ describe("/rollup.js", () => {
                 }
             `);
 
-            write(temp("watched.js"), `
+            write("watched.js", `
                 import css from "./watched.css";
                 console.log(css);
             `);
@@ -113,7 +113,7 @@ describe("/rollup.js", () => {
                 if(builds === 1) {
                     expect(temp()).toMatchDirSnapshot();
 
-                    setTimeout(() => write(temp("watched.css"), `
+                    setTimeout(() => write("watched.css", `
                         .one {
                             color: green;
                         }
@@ -141,7 +141,7 @@ describe("/rollup.js", () => {
 
         it("should update when a dependency changes", (done) => {
             // Create v1 of the files
-            write(temp("one.css"), `
+            write("one.css", `
                 .one {
                     composes: two from "./two.css";
                     composes: three from "./three.css";
@@ -149,19 +149,19 @@ describe("/rollup.js", () => {
                 }
             `);
 
-            write(temp("two.css"), `
+            write("two.css", `
                 .two {
                     color: blue;
                 }
             `);
             
-            write(temp("three.css"), `
+            write("three.css", `
                 .three {
                     color: green;
                 }
             `);
             
-            write(temp("watch.js"), `
+            write("watch.js", `
                 import css from "./one.css";
                 console.log(css);
             `);
@@ -186,7 +186,7 @@ describe("/rollup.js", () => {
                 if(builds === 1) {
                     expect(temp("assets/output.css")).toMatchFileSnapshot();
 
-                    setTimeout(() => write(temp("two.css"), `
+                    setTimeout(() => write("two.css", `
                         .two {
                             color: green;
                         }
@@ -204,13 +204,13 @@ describe("/rollup.js", () => {
 
         it("should update when adding new css files", (done) => {
             // Create v1 of the files
-            write(temp("one.css"), `
+            write("one.css", `
                 .one {
                     color: red;
                 }
             `);
 
-            write(temp("watch.js"), `
+            write("watch.js", `
                 console.log("hello");
             `);
 
@@ -234,7 +234,7 @@ describe("/rollup.js", () => {
                 if(builds === 1) {
                     expect(temp("assets/output.css")).not.fileExists();
 
-                    setTimeout(() => write(temp("watch.js"), `
+                    setTimeout(() => write("watch.js", `
                         import css from "./one.css";
 
                         console.log(css);
@@ -252,27 +252,27 @@ describe("/rollup.js", () => {
 
         it("should update when a shared dependency changes", (done) => {
             // Create v1 of the files
-            write(temp("one.css"), `
+            write("one.css", `
                 .one {
                     composes: two from "./two.css";
                     color: red;
                 }
             `);
 
-            write(temp("two.css"), `
+            write("two.css", `
                 .two {
                     color: green;
                 }
             `);
             
-            write(temp("three.css"), `
+            write("three.css", `
                 .three {
                     composes: two from "./two.css";
                     color: teal;
                 }
             `);
 
-            write(temp("watch.js"), `
+            write("watch.js", `
                 import css from "./one.css";
                 import css3 from "./three.css";
 
@@ -299,7 +299,7 @@ describe("/rollup.js", () => {
                 if(builds === 1) {
                     expect(temp("assets/output.css")).toMatchFileSnapshot();
                     
-                    setTimeout(() => write(temp("two.css"), `
+                    setTimeout(() => write("two.css", `
                     .two {
                         color: yellow;
                     }
@@ -318,20 +318,20 @@ describe("/rollup.js", () => {
         // TODO: causing jest to hang but say the test has completed weirdly
         it("should watch when using code splitting", (done) => {
             // Create v1 of the files
-            write(temp("one.css"), `
+            write("one.css", `
                 .one {
                     composes: shared from "./shared.css";
                     color: red;
                 }
             `);
 
-            write(temp("two.css"), `
+            write("two.css", `
                 .two {
                     color: green;
                 }
             `);
             
-            write(temp("shared.css"), `
+            write("shared.css", `
                 @value baloo from "./values.css";
 
                 .shared {
@@ -339,17 +339,17 @@ describe("/rollup.js", () => {
                 }
             `);
             
-            write(temp("values.css"), `
+            write("values.css", `
                 @value baloo: blue;
             `);
             
-            write(temp("one.js"), `
+            write("one.js", `
                 import css from "./one.css";
 
                 console.log(css);
             `);
             
-            write(temp("two.js"), `
+            write("two.js", `
                 import two from "./two.css";
                 import "./shared.css";
 
@@ -384,7 +384,7 @@ describe("/rollup.js", () => {
                     expect(temp("assets")).toMatchDirSnapshot();
                     
                     // Create v2 of the file we want to change
-                    setTimeout(() => write(temp("values.css"), `
+                    setTimeout(() => write("values.css", `
                         @value baloo: aqua;
                     `), 100);
                     
