@@ -2,30 +2,30 @@
 
 exports[`modular-css-aliases should be usable as a modular-css resolver 1`] = `
 Object {
-  "packages/aliases/test/specimens/one/sub/sub.css": Object {
+  "fixtures/one/sub/sub.css": Object {
     "sub": "sub",
   },
-  "packages/aliases/test/specimens/two/two.css": Object {
-    "two": "two",
-  },
-  "packages/paths/test/specimens/one/start.css": Object {
+  "fixtures/start.css": Object {
     "rule": "two rule",
     "sub": "\\"sub\\"",
+  },
+  "fixtures/two/two.css": Object {
+    "two": "two",
   },
 }
 `;
 
 exports[`modular-css-aliases should fall through to the default resolver 1`] = `
 Object {
-  "packages/aliases/test/specimens/two/two.css": Object {
-    "two": "two",
-  },
-  "packages/paths/test/specimens/one/start.css": Object {
+  "fixtures/one/one.css": Object {
     "rule": "two rule",
     "sub": "\\"sub\\"",
   },
-  "packages/paths/test/specimens/one/sub/sub.css": Object {
+  "fixtures/one/sub/sub.css": Object {
     "sub": "sub",
+  },
+  "fixtures/two/two.css": Object {
+    "two": "two",
   },
 }
 `;
