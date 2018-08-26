@@ -1,17 +1,18 @@
 "use strict";
 
-var { dedent } = require("dentist"),
+const dedent = require("dedent");
     
-    Processor = require("modular-css-core"),
-    namer     = require("test-utils/namer.js"),
+const Processor = require("modular-css-core");
+const namer = require("test-utils/namer.js");
+const { find } = require("test-utils/fixtures.js");
 
-    paths = require("../paths.js");
+const paths = require("../paths.js");
 
 describe("modular-css-paths", () => {
     it("should return a falsey value if a file isn't found", () => {
-        var fn = paths({
+        const fn = paths({
             paths : [
-                "./packages/paths/test/specimens",
+                "./fixtures",
             ],
         });
 
@@ -19,41 +20,41 @@ describe("modular-css-paths", () => {
     });
 
     it("should return the absolute path if a file is found", () => {
-        var fn = paths({
+        const fn = paths({
             paths : [
-                "./packages/paths/test/specimens/one",
+                "./fixtures/one",
             ],
         });
 
-        expect(fn(".", "./one.css")).toBe(require.resolve("./specimens/one/one.css"));
+        expect(fn(".", "./one.css")).toBe(find("one.css"));
     });
 
     it("should check multiple paths for files & return the first match", () => {
-        var fn = paths({
+        const fn = paths({
             paths : [
-                "./packages/paths/test/specimens/one",
-                "./packages/paths/test/specimens/one/sub",
+                "./fixtures/one",
+                "./fixtures/one/sub",
             ],
         });
 
-         expect(fn(".", "./sub.css")).toBe(require.resolve("./specimens/one/sub/sub.css"));
+         expect(fn(".", "./sub.css")).toBe(find("sub.css"));
     });
 
-    it("should be usable as a modular-css resolver", () => {
-        var processor = new Processor({
-                namer,
-                resolvers : [
-                    paths({
-                        paths : [
-                            "./packages/paths/test/specimens/one/sub",
-                            "./packages/paths/test/specimens/two",
-                        ],
-                    }),
-                ],
-            });
+    it("should be usable as a modular-css resolver", async () => {
+        const processor = new Processor({
+            namer,
+            resolvers : [
+                paths({
+                    paths : [
+                        "./fixtures/one/sub",
+                        "./fixtures/two",
+                    ],
+                }),
+            ],
+        });
         
-        return processor.string(
-            "./packages/paths/test/specimens/one/start.css",
+        await processor.string(
+            "./fixtures/one/start.css",
             dedent(`
                 @value sub from "./sub.css";
                 
@@ -61,8 +62,10 @@ describe("modular-css-paths", () => {
                     composes: two from "./two.css";
                 }
             `)
-        )
-        .then(() => processor.output())
-        .then((result) => expect(result.compositions).toMatchSnapshot());
+        );
+
+        const result = await processor.output();
+        
+        expect(result.compositions).toMatchSnapshot();
     });
 });
