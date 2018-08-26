@@ -2,17 +2,17 @@
 
 exports[`/postcss.js should accept a \`json\` property and write exports to that file 1`] = `
 "{
-    \\"packages/postcss/test/specimens/folder/folder.css\\": {
+    \\"fixtures/folder/folder.css\\": {
         \\"folder\\": \\"folder\\"
     },
-    \\"packages/postcss/test/specimens/local.css\\": {
+    \\"fixtures/local.css\\": {
         \\"folder\\": \\"white\\",
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"booga\\": \\"booga\\",
         \\"looga\\": \\"booga looga\\"
     },
-    \\"packages/postcss/test/specimens/start.css\\": {
+    \\"fixtures/start.css\\": {
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"folder\\": \\"white\\",
@@ -25,28 +25,34 @@ exports[`/postcss.js should accept a \`json\` property and write exports to that
 
 exports[`/postcss.js should accept json args in either position with postcss 1`] = `
 "{
-    \\"packages/postcss/test/specimens/simple.css\\": {
-        \\"wooga\\": \\"wooga\\"
+    \\"fixtures/simple.css\\": {
+        \\"str\\": \\"\\\\\\"string\\\\\\"\\",
+        \\"fooga\\": \\"fooga\\"
     }
 }"
 `;
 
 exports[`/postcss.js should accept normal processor options 1`] = `
-".fooga_wooga { color: red; }
+".fooga_fooga {
+    color: red;
+}
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhY2thZ2VzL3Bvc3Rjc3MvdGVzdC9zcGVjaW1lbnMvc2ltcGxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxlQUFTLFdBQVcsRUFBRSIsImZpbGUiOiJwYWNrYWdlcy9wb3N0Y3NzL3Rlc3Qvc3BlY2ltZW5zL3NpbXBsZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud29vZ2EgeyBjb2xvcjogcmVkOyB9XG4iXX0= */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL3NpbXBsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7SUFDSSxXQUFXO0NBQ2QiLCJmaWxlIjoiZml4dHVyZXMvc2ltcGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkB2YWx1ZSBzdHI6IFwic3RyaW5nXCI7XG5cbi5mb29nYSB7XG4gICAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */"
 `;
 
 exports[`/postcss.js should be usable like a normal postcss plugin 1`] = `
-".a { color: red; }
+".a {
+    color: red;
+}
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhY2thZ2VzL3Bvc3Rjc3MvdGVzdC9zcGVjaW1lbnMvc2ltcGxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxLQUFTLFdBQVcsRUFBRSIsImZpbGUiOiJwYWNrYWdlcy9wb3N0Y3NzL3Rlc3Qvc3BlY2ltZW5zL3NpbXBsZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud29vZ2EgeyBjb2xvcjogcmVkOyB9XG4iXX0= */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL3NpbXBsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7SUFDSSxXQUFXO0NBQ2QiLCJmaWxlIjoiZml4dHVyZXMvc2ltcGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkB2YWx1ZSBzdHI6IFwic3RyaW5nXCI7XG5cbi5mb29nYSB7XG4gICAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */"
 `;
 
 exports[`/postcss.js should output json when used within postcss 1`] = `
 "{
-    \\"packages/postcss/test/specimens/simple.css\\": {
-        \\"wooga\\": \\"wooga\\"
+    \\"fixtures/simple.css\\": {
+        \\"str\\": \\"\\\\\\"string\\\\\\"\\",
+        \\"fooga\\": \\"fooga\\"
     }
 }"
 `;
@@ -55,9 +61,10 @@ exports[`/postcss.js should process CSS and output exports as a message 1`] = `
 Array [
   Object {
     "exports": Object {
-      "wooga": Array [
-        "wooga",
+      "fooga": Array [
+        "fooga",
       ],
+      "str": "\\"string\\"",
     },
     "type": "modular-css-exports",
   },
@@ -65,7 +72,9 @@ Array [
 `;
 
 exports[`/postcss.js should process CSS and output the result 1`] = `
-".wooga { color: red; }
+".fooga {
+    color: red;
+}
 "
 `;
 
@@ -77,17 +86,17 @@ exports[`/postcss.js should process CSS with dependencies and output the result 
 
 exports[`/postcss.js should use output filepath for json if a custom path isn't provided 1`] = `
 "{
-    \\"packages/postcss/test/specimens/folder/folder.css\\": {
+    \\"fixtures/folder/folder.css\\": {
         \\"folder\\": \\"folder\\"
     },
-    \\"packages/postcss/test/specimens/local.css\\": {
+    \\"fixtures/local.css\\": {
         \\"folder\\": \\"white\\",
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"booga\\": \\"booga\\",
         \\"looga\\": \\"booga looga\\"
     },
-    \\"packages/postcss/test/specimens/start.css\\": {
+    \\"fixtures/start.css\\": {
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"folder\\": \\"white\\",
