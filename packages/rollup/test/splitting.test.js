@@ -3,40 +3,36 @@
 
 const { rollup } = require("rollup");
 
-const shell = require("shelljs");
-
-const dir = require("test-utils/read-dir.js")(__dirname);
-const prefix = require("test-utils/prefix.js")(__dirname);
+const { temp, find } = require("test-utils/fixtures.js");
 const namer = require("test-utils/namer.js");
+
+require("test-utils/expect-dir-snapshot.js");
 
 const plugin = require("../rollup.js");
 
-function error(root) {
+const error = (root) => {
     throw root.error("boom");
-}
+};
 
 error.postcssPlugin = "error-plugin";
 
+const experimentalCodeSplitting = true;
 const assetFileNames = "assets/[name][extname]";
+const chunkFileNames = "[name].js";
 const format = "es";
 const map = false;
 const sourcemap = false;
 const json = true;
 
 describe("/rollup.js", () => {
-    beforeAll(() => shell.rm("-rf", prefix("./output/rollup/*")));
-    
     describe("code splitting", () => {
-        const experimentalCodeSplitting = true;
-        const chunkFileNames = "[name].js";
-
         it("should support splitting up CSS files", async () => {
             const bundle = await rollup({
                 experimentalCodeSplitting,
                 
                 input : [
-                    require.resolve("./specimens/simple.js"),
-                    require.resolve("./specimens/dependencies.js"),
+                    find("simple.js"),
+                    find("dependencies.js"),
                 ],
 
                 plugins : [
@@ -54,10 +50,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
                 
-                dir : prefix(`./output/rollup/splitting`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/splitting/assets")).toMatchSnapshot();
+            expect(temp("assets")).toMatchDirSnapshot();
         });
 
         it("should support splitting up CSS files w/ shared assets", async () => {
@@ -65,8 +61,8 @@ describe("/rollup.js", () => {
                 experimentalCodeSplitting,
 
                 input : [
-                    require.resolve("./specimens/css-chunks/a.js"),
-                    require.resolve("./specimens/css-chunks/b.js"),
+                    find("css-chunks/a.js"),
+                    find("css-chunks/b.js"),
                 ],
 
                 plugins : [
@@ -84,10 +80,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
 
-                dir : prefix(`./output/rollup/css-chunking`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/css-chunking/assets")).toMatchSnapshot();
+            expect(temp("assets")).toMatchDirSnapshot();
         });
         
         it("shouldn't put bundle-specific CSS in common.css", async () => {
@@ -95,8 +91,8 @@ describe("/rollup.js", () => {
                 experimentalCodeSplitting,
 
                 input : [
-                    require.resolve("./specimens/common-splitting/a.js"),
-                    require.resolve("./specimens/common-splitting/c.js"),
+                    find("common-splitting/a.js"),
+                    find("common-splitting/c.js"),
                 ],
 
                 plugins : [
@@ -114,10 +110,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
 
-                dir : prefix(`./output/rollup/common-splitting`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/common-splitting/assets")).toMatchSnapshot();
+            expect(temp("assets")).toMatchDirSnapshot();
         });
 
         it("should support manual chunks", async () => {
@@ -125,13 +121,13 @@ describe("/rollup.js", () => {
                 experimentalCodeSplitting,
 
                 input : [
-                    require.resolve("./specimens/manual-chunks/a.js"),
-                    require.resolve("./specimens/manual-chunks/b.js"),
+                    find("manual-chunks/a.js"),
+                    find("manual-chunks/b.js"),
                 ],
 
                 manualChunks : {
                     shared : [
-                        require.resolve("./specimens/manual-chunks/c.js"),
+                        find("manual-chunks/c.js"),
                     ],
                 },
 
@@ -150,10 +146,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
 
-                dir : prefix(`./output/rollup/manual-chunks`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/manual-chunks/assets")).toMatchSnapshot();
+            expect(temp("assets")).toMatchDirSnapshot();
         });
 
         it("should support dynamic imports", async () => {
@@ -163,8 +159,8 @@ describe("/rollup.js", () => {
                 // treeshake : false,
 
                 input : [
-                    require.resolve("./specimens/dynamic-imports/a.js"),
-                    require.resolve("./specimens/dynamic-imports/b.js"),
+                    find("dynamic-imports/a.js"),
+                    find("dynamic-imports/b.js"),
                 ],
 
                 plugins : [
@@ -182,10 +178,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
 
-                dir : prefix(`./output/rollup/dynamic-imports`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/dynamic-imports/assets/")).toMatchSnapshot();
+            expect(temp("assets/")).toMatchDirSnapshot();
         });
 
         it("should ouput only 1 JSON file", async () => {
@@ -193,8 +189,8 @@ describe("/rollup.js", () => {
                 experimentalCodeSplitting,
 
                 input : [
-                    require.resolve("./specimens/simple.js"),
-                    require.resolve("./specimens/dependencies.js"),
+                    find("simple.js"),
+                    find("dependencies.js"),
                 ],
 
                 plugins : [
@@ -213,10 +209,10 @@ describe("/rollup.js", () => {
                 assetFileNames,
                 chunkFileNames,
 
-                dir : prefix(`./output/rollup/json-splitting`),
+                dir : temp(),
             });
 
-            expect(dir("./rollup/json-splitting/assets")).toMatchSnapshot();
+            expect(temp("assets")).toMatchDirSnapshot();
         });
     });
 });
