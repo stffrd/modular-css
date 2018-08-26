@@ -44,9 +44,9 @@ exports.temp = (...args) => {
     return path.join(dir, ...args);
 };
 
-exports.write = (file, contents) => {
-    fs.writeFileSync(file, dedent(contents), "utf8");
-};
+exports.write = (file, contents) => fs.writeFileSync(exports.temp(file), dedent(contents), "utf8");
+
+exports.read = (search) => fs.readFileSync(exports.find(search), "utf8");
 
 exports.copy = (from, to) => {
     const source = exports.find(from);
