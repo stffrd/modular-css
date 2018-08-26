@@ -7,21 +7,19 @@ const svelte = require("svelte");
 const dedent = require("dedent");
 
 const namer = require("test-utils/namer.js");
+const { find, read, temp, write } = require("test-utils/fixtures.js");
     
 const plugin = require("../svelte.js");
 
 describe("/svelte.js", () => {
-    afterEach(() => require("shelljs").rm("-rf", "./packages/svelte/test/output/*"));
-    
     it("should extract CSS from a <style> tag", async () => {
-        const filename = require.resolve("./specimens/style.html");
         const { processor, preprocess } = plugin({
             namer,
         });
         
         const processed = await svelte.preprocess(
-            fs.readFileSync(filename, "utf8"),
-            Object.assign({}, preprocess, { filename })
+            read("style.html"),
+            Object.assign({}, preprocess, { filename : find("style.html") })
         );
 
         expect(processed.toString()).toMatchSnapshot();
@@ -32,20 +30,19 @@ describe("/svelte.js", () => {
     });
 
     it.each`
-        specimen | title
+        fixture | title
         ${"external.html"} | ${"no script"}
         ${"external-script.html"} | ${"existing script"}
         ${"external-single.html"} | ${"single quotes"}
         ${"external-unquoted.html"} | ${"unquoted"}
-    `("should extract CSS from a <link> tag ($title)", async ({ specimen }) => {
-        const filename = require.resolve(`./specimens/${specimen}`);
+    `("should extract CSS from a <link> tag ($title)", async ({ fixture }) => {
         const { processor, preprocess } = plugin({
             namer,
         });
 
         const processed = await svelte.preprocess(
-            fs.readFileSync(filename, "utf8"),
-            Object.assign({}, preprocess, { filename })
+            read(fixture),
+            Object.assign({}, preprocess, { filename : find(fixture) })
         );
 
         expect(processed.toString()).toMatchSnapshot();
@@ -74,7 +71,7 @@ describe("/svelte.js", () => {
     });
 
     it.each`
-        title         | inline   | strict   | specimen
+        title         | inline   | strict   | fixture
         ${"<script>"} | ${true}  | ${true}  | ${"invalid-inline-script.html"}
         ${"template"} | ${true}  | ${true}  | ${"invalid-inline-template.html"}
         ${"<script>"} | ${true}  | ${false} | ${"invalid-inline-script.html"}
@@ -83,13 +80,11 @@ describe("/svelte.js", () => {
         ${"template"} | ${false} | ${false} | ${"invalid-external-template.html"}
         ${"<script>"} | ${false} | ${true}  | ${"invalid-external-script.html"}
         ${"template"} | ${false} | ${true}  | ${"invalid-external-template.html"}
-    `("should handle invalid references in $title (inline: $inline, strict: $strict)", async ({ strict, specimen }) => {
+    `("should handle invalid references in $title (inline: $inline, strict: $strict)", async ({ strict, fixture }) => {
         const spy = jest.spyOn(global.console, "warn");
 
         spy.mockImplementation(() => { /* NO-OP */ });
         
-        const filename = require.resolve(`./specimens/${specimen}`);
-
         const { preprocess } = plugin({
             namer,
             strict,
@@ -98,8 +93,8 @@ describe("/svelte.js", () => {
         if(strict) {
             await expect(
                 svelte.preprocess(
-                    fs.readFileSync(filename, "utf8"),
-                    Object.assign({}, preprocess, { filename })
+                    read(fixture),
+                    Object.assign({}, preprocess, { filename : find(fixture) })
                 )
             ).rejects.toThrowErrorMatchingSnapshot();
 
@@ -107,8 +102,8 @@ describe("/svelte.js", () => {
         }
 
         const processed = await svelte.preprocess(
-            fs.readFileSync(filename, "utf8"),
-            Object.assign({}, preprocess, { filename })
+            read(fixture),
+            Object.assign({}, preprocess, { filename : find(fixture) })
         );
         
         expect(spy).toHaveBeenCalled();
@@ -119,39 +114,40 @@ describe("/svelte.js", () => {
 
     it("should throw on both <style> and <link> in one file", async () => {
         const { preprocess } = plugin({
-            css : "./packages/svelte/test/output/svelte.css",
+            css : "./output/svelte.css",
             namer,
         });
 
-        const filename = require.resolve("./specimens/both.html");
-
         await expect(
             svelte.preprocess(
-                fs.readFileSync(filename, "utf8"),
-                Object.assign({}, preprocess, { filename })
+                read("both.html"),
+                Object.assign({}, preprocess, { filename : find("both.html") })
             )
         ).rejects.toThrowErrorMatchingSnapshot();
     });
 
     it("should remove files before reprocessing in case they changed", async () => {
         // V1 of files
-        fs.writeFileSync(path.resolve(__dirname, "./output/source.html"), dedent(`
+        write("source.html", dedent(`
             <link rel="stylesheet" href="./source.css" />
             <div class="{css.source}">Source</div>
         `));
 
-        fs.writeFileSync(path.resolve(__dirname, "./output/source.css"), dedent(`
+        write("source.css", dedent(`
             .source {
                 color: red;
             }
         `));
         
-        const filename = require.resolve(`./output/source.html`);
-        const { processor, preprocess } = plugin({ namer });
+        const { processor, preprocess } = plugin({
+            namer,
+            cwd : temp(),
+        });
 
         let processed = await svelte.preprocess(
-            fs.readFileSync(filename, "utf8"),
-            Object.assign({}, preprocess, { filename })
+            // Can't use read here, needs to read the output,
+            fs.readFileSync(temp("source.html"), "utf8"),
+            Object.assign({}, preprocess, { filename : temp("source.html") })
         );
 
         expect(processed.toString()).toMatchSnapshot();
@@ -161,15 +157,16 @@ describe("/svelte.js", () => {
         expect(output.css).toMatchSnapshot();
         
         // V2 of CSS
-        fs.writeFileSync(path.resolve(__dirname, "./output/source.css"), dedent(`
-        .source {
-            color: blue;
-        }
+        write("source.css", dedent(`
+            .source {
+                color: blue;
+            }
         `));
         
         processed = await svelte.preprocess(
-            fs.readFileSync(filename, "utf8"),
-            Object.assign({}, preprocess, { filename })
+            // Can't use read here, needs to read the output,
+            fs.readFileSync(temp("source.html"), "utf8"),
+            Object.assign({}, preprocess, { filename : temp("source.html") })
         );
 
         expect(processed.toString()).toMatchSnapshot();

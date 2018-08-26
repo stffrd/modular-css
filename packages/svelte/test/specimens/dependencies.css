@@ -1,5 +1,0 @@
-.wooga {
-    composes: fooga from "./simple.css";
-
-    background: blue;
-}
