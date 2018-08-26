@@ -4,5 +4,5 @@
 # Ignore www package for language stats
 packages/www/** linguist-documentation
 
-# Ignore specimens
-**/specimens/** linguist-vendored
+# Ignore fixtures
+**/fixtures/** linguist-vendored
