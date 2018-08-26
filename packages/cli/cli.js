@@ -67,5 +67,5 @@ glob(Object.assign(
 .catch((error) => {
     process.stderr.write(error.toString());
 
-    process.exit(1);
+    process.exitCode = 1;
 });

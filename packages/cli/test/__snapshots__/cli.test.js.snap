@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`/cli.js should default to outputting to stdout 1`] = `
-"/* packages/cli/test/specimens/simple.css */
-.mc73666a66_wooga { color: red; }"
+"/* fixtures/simple.css */
+.mcc92a931a_fooga {
+    color: red;
+}"
 `;
 
 exports[`/cli.js should show help with no args 1`] = `
@@ -21,8 +23,8 @@ exports[`/cli.js should show help with no args 1`] = `
 `;
 
 exports[`/cli.js should support disabling url() rewriting (--no-rewrite) 1`] = `
-"/* packages/cli/test/specimens/no-rewrite.css */
-.mc0d1faef2_a {
+"/* fixtures/no-rewrite.css */
+.mc91ebdec9_a {
     background: url(\\"image.png\\");
 }
 "
@@ -30,14 +32,17 @@ exports[`/cli.js should support disabling url() rewriting (--no-rewrite) 1`] = `
 
 exports[`/cli.js should support outputting compositions to a file (--json) 1`] = `
 "{
-    \\"packages/cli/test/specimens/simple.css\\": {
-        \\"wooga\\": \\"mc73666a66_wooga\\"
+    \\"fixtures/simple.css\\": {
+        \\"str\\": \\"\\\\\\"string\\\\\\"\\",
+        \\"fooga\\": \\"mcc92a931a_fooga\\"
     }
 }"
 `;
 
 exports[`/cli.js should support outputting to a file (--out) 1`] = `
-"/* packages/cli/test/specimens/simple.css */
-.mc73666a66_wooga { color: red; }
+"/* fixtures/simple.css */
+.mcc92a931a_fooga {
+    color: red;
+}
 "
 `;
