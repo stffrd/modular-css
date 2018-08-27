@@ -8,7 +8,7 @@ const globby = require("globby");
 const tempy = require("tempy");
 const shell = require("shelljs");
 
-const root = path.resolve(__dirname, "../../fixtures");
+const root = global.fixtures;
 
 exports.find = (search) => {
     const results = globby.sync(`**/${search}`, {
@@ -25,8 +25,13 @@ exports.find = (search) => {
         throw new Error(`Multiple fixtures found, ${results.join(", ")}`);
     }
 
-    // The resolve is to ensure the separators make sense, globby always returns /
-    return path.resolve(results[0]);
+    return results[0];
+};
+
+exports.short = (search) => {
+    const fixture = exports.find(search);
+
+    return path.relative(root, fixture);
 };
 
 let dir;
@@ -53,3 +58,5 @@ exports.copy = (from, to) => {
 
     shell.cp("-r", shell.test("-d", source) ? `${source}/*` : source, to);
 };
+
+exports.root = root;

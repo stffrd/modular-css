@@ -39,6 +39,7 @@
     "rollup-plugin-svelte": "4.2.1",
     "shelljs": "0.8.2",
     "svelte": "^2.13.0",
+    "temp-dir": "^1.0.0",
     "tempy": "^0.2.1",
     "test-utils": "file:packages/test-utils",
     "watchify": "3.11.0",
