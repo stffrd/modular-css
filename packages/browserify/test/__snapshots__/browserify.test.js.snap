@@ -13,79 +13,80 @@ exports[`/browserify.js basic functionality should error if an invalid extension
 
 exports[`/browserify.js basic functionality should include all CSS dependencies in output css 1`] = `
 "(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\\"function\\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\\"Cannot find module '\\"+i+\\"'\\");throw a.code=\\"MODULE_NOT_FOUND\\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\\"function\\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-require('./packages/browserify/test/specimens/start.css');
-},{\\"./packages/browserify/test/specimens/start.css\\":4}],2:[function(require,module,exports){
+require(\\"./fixtures/start.css\\");
+},{\\"./fixtures/start.css\\":4}],2:[function(require,module,exports){
 module.exports = {
-    \\"folder\\": \\"mcd19f1319_folder\\"
+    \\"folder\\": \\"mced1763d9_folder\\"
 };
 },{}],3:[function(require,module,exports){
 module.exports = {
     \\"folder\\": \\"white\\",
     \\"one\\": \\"red\\",
     \\"two\\": \\"blue\\",
-    \\"booga\\": \\"mcc4e2a8e1_booga\\",
-    \\"looga\\": \\"mcc4e2a8e1_booga mcc4e2a8e1_looga\\"
+    \\"booga\\": \\"mcd3f7efb5_booga\\",
+    \\"looga\\": \\"mcd3f7efb5_booga mcd3f7efb5_looga\\"
 };
-},{\\"./packages/browserify/test/specimens/folder/folder.css\\":2}],4:[function(require,module,exports){
+},{\\"./fixtures/folder/folder.css\\":2}],4:[function(require,module,exports){
 module.exports = {
     \\"one\\": \\"red\\",
     \\"two\\": \\"blue\\",
     \\"folder\\": \\"white\\",
-    \\"wooga\\": \\"mcc4e2a8e1_booga mc1c78395f_wooga\\",
-    \\"booga\\": \\"mc1c78395f_booga\\",
-    \\"tooga\\": \\"mc1c78395f_tooga\\"
+    \\"wooga\\": \\"mcd3f7efb5_booga mc1b641f85_wooga\\",
+    \\"booga\\": \\"mc1b641f85_booga\\",
+    \\"tooga\\": \\"mc1b641f85_tooga\\"
 };
-},{\\"./packages/browserify/test/specimens/folder/folder.css\\":2,\\"./packages/browserify/test/specimens/local.css\\":3}]},{},[1]);
+},{\\"./fixtures/folder/folder.css\\":2,\\"./fixtures/local.css\\":3}]},{},[1]);
 "
 `;
 
 exports[`/browserify.js basic functionality should include all CSS dependencies in output css 2`] = `
-"/* packages/browserify/test/specimens/folder/folder.css */
-.mcd19f1319_folder { margin: 2px; }
-/* packages/browserify/test/specimens/local.css */
-.mcc4e2a8e1_booga { background: green; }
-/* packages/browserify/test/specimens/start.css */
-.mc1c78395f_booga { color: red; background: blue; }
-.mc1c78395f_tooga { border: 1px solid white; }
+"/* fixtures/folder/folder.css */
+.mced1763d9_folder { margin: 2px; }
+/* fixtures/local.css */
+.mcd3f7efb5_booga { background: green; }
+/* fixtures/start.css */
+.mc1b641f85_booga { color: red; background: blue; }
+.mc1b641f85_tooga { border: 1px solid white; }
 "
 `;
 
 exports[`/browserify.js basic functionality should not include duplicate files in the output multiple times 1`] = `
 "(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\\"function\\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\\"Cannot find module '\\"+i+\\"'\\");throw a.code=\\"MODULE_NOT_FOUND\\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\\"function\\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-require('./packages/browserify/test/specimens/start.css'); require('./packages/browserify/test/specimens/local.css');
-},{\\"./packages/browserify/test/specimens/local.css\\":3,\\"./packages/browserify/test/specimens/start.css\\":4}],2:[function(require,module,exports){
+require(\\"./fixtures/start.css\\");
+require(\\"./fixtures/local.css\\");
+},{\\"./fixtures/local.css\\":3,\\"./fixtures/start.css\\":4}],2:[function(require,module,exports){
 module.exports = {
-    \\"folder\\": \\"mcd19f1319_folder\\"
+    \\"folder\\": \\"mced1763d9_folder\\"
 };
 },{}],3:[function(require,module,exports){
 module.exports = {
     \\"folder\\": \\"white\\",
     \\"one\\": \\"red\\",
     \\"two\\": \\"blue\\",
-    \\"booga\\": \\"mcc4e2a8e1_booga\\",
-    \\"looga\\": \\"mcc4e2a8e1_booga mcc4e2a8e1_looga\\"
+    \\"booga\\": \\"mcd3f7efb5_booga\\",
+    \\"looga\\": \\"mcd3f7efb5_booga mcd3f7efb5_looga\\"
 };
-},{\\"./packages/browserify/test/specimens/folder/folder.css\\":2}],4:[function(require,module,exports){
+},{\\"./fixtures/folder/folder.css\\":2}],4:[function(require,module,exports){
 module.exports = {
     \\"one\\": \\"red\\",
     \\"two\\": \\"blue\\",
     \\"folder\\": \\"white\\",
-    \\"wooga\\": \\"mcc4e2a8e1_booga mc1c78395f_wooga\\",
-    \\"booga\\": \\"mc1c78395f_booga\\",
-    \\"tooga\\": \\"mc1c78395f_tooga\\"
+    \\"wooga\\": \\"mcd3f7efb5_booga mc1b641f85_wooga\\",
+    \\"booga\\": \\"mc1b641f85_booga\\",
+    \\"tooga\\": \\"mc1b641f85_tooga\\"
 };
-},{\\"./packages/browserify/test/specimens/folder/folder.css\\":2,\\"./packages/browserify/test/specimens/local.css\\":3}]},{},[1]);
+},{\\"./fixtures/folder/folder.css\\":2,\\"./fixtures/local.css\\":3}]},{},[1]);
 "
 `;
 
 exports[`/browserify.js basic functionality should not include duplicate files in the output multiple times 2`] = `
-"/* packages/browserify/test/specimens/folder/folder.css */
-.mcd19f1319_folder { margin: 2px; }
-/* packages/browserify/test/specimens/local.css */
-.mcc4e2a8e1_booga { background: green; }
-/* packages/browserify/test/specimens/start.css */
-.mc1c78395f_booga { color: red; background: blue; }
-.mc1c78395f_tooga { border: 1px solid white; }
+"/* fixtures/folder/folder.css */
+.mced1763d9_folder { margin: 2px; }
+/* fixtures/local.css */
+.mcd3f7efb5_booga { background: green; }
+/* fixtures/start.css */
+.mc1b641f85_booga { color: red; background: blue; }
+.mc1b641f85_tooga { border: 1px solid white; }
 "
 `;
 
@@ -103,31 +104,34 @@ exports[`/browserify.js basic functionality should output an external source map
 
 exports[`/browserify.js basic functionality should output an external source map when the debug option is specified 2`] = `"{\\"version\\":3,\\"sources\\":[\\"../../specimens/folder/folder.css\\",\\"../../specimens/local.css\\",\\"../../specimens/start.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,0DAAC;AACD,qBAAU,YAAY,EAAE;ACDxB,kDAAC;AAID,oBAAS,kBAAkB,EAAE;ACJ7B,kDAAC;AAED,oBDFA,WAAgB,CAChB,iBAAiB,ECCsB;AACvC,oBFHA,wBAAqB,EEGe\\",\\"file\\":\\"source-maps.css\\",\\"sourcesContent\\":[\\"@value folder: white;\\\\n.folder { margin: 2px; }\\\\n\\",\\"@value one: red;\\\\n@value two: blue;\\\\n@value folder from \\\\\\"./folder/folder.css\\\\\\";\\\\n\\\\n.booga { background: green; }\\\\n.looga { composes: booga; }\\\\n\\",\\"@value one, two, folder from \\\\\\"./local.css\\\\\\";\\\\n.wooga { composes: booga from \\\\\\"./local.css\\\\\\"; }\\\\n.booga { color: one; background: two; }\\\\n.tooga { border: 1px solid folder; }\\\\n\\"]}"`;
 
-exports[`/browserify.js basic functionality should output an inline source map when the debug option is specified 1`] = `
-"/* packages/browserify/test/specimens/folder/folder.css */
-.mcd19f1319_folder { margin: 2px; }
-/* packages/browserify/test/specimens/local.css */
-.mcc4e2a8e1_booga { background: green; }
-/* packages/browserify/test/specimens/start.css */
-.mc1c78395f_booga { color: red; background: blue; }
-.mc1c78395f_tooga { border: 1px solid white; }
+exports[`/browserify.js basic functionality should output an external source map when the debug option is specified 3`] = `"{\\"version\\":3,\\"sources\\":[\\"../modular-css-fixtures/folder/folder.css\\",\\"../modular-css-fixtures/local.css\\",\\"../modular-css-fixtures/start.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,uBAAC;AACD,qBAAU,YAAY,EAAE;ACDxB,eAAC;AAID,oBAAS,kBAAkB,EAAE;ACJ7B,eAAC;AAED,oBDFA,WAAgB,CAChB,iBAAiB,ECCsB;AACvC,oBFHA,wBAAqB,EEGe\\",\\"file\\":\\"source-maps.css\\",\\"sourcesContent\\":[\\"@value folder: white;\\\\n.folder { margin: 2px; }\\\\n\\",\\"@value one: red;\\\\n@value two: blue;\\\\n@value folder from \\\\\\"./folder/folder.css\\\\\\";\\\\n\\\\n.booga { background: green; }\\\\n.looga { composes: booga; }\\\\n\\",\\"@value one, two, folder from \\\\\\"./local.css\\\\\\";\\\\n.wooga { composes: booga from \\\\\\"./local.css\\\\\\"; }\\\\n.booga { color: one; background: two; }\\\\n.tooga { border: 1px solid folder; }\\\\n\\"]}"`;
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NwZWNpbWVucy9mb2xkZXIvZm9sZGVyLmNzcyIsIi4uLy4uL3NwZWNpbWVucy9sb2NhbC5jc3MiLCIuLi8uLi9zcGVjaW1lbnMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDBEQUFDO0FBQ0QscUJBQVUsWUFBWSxFQUFFO0FDRHhCLGtEQUFDO0FBSUQsb0JBQVMsa0JBQWtCLEVBQUU7QUNKN0Isa0RBQUM7QUFFRCxvQkRGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsb0JGSEEsd0JBQXFCLEVFR2UiLCJmaWxlIjoic291cmNlLW1hcHMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
+exports[`/browserify.js basic functionality should output an inline source map when the debug option is specified 1`] = `
+"/* fixtures/folder/folder.css */
+.mced1763d9_folder { margin: 2px; }
+/* fixtures/local.css */
+.mcd3f7efb5_booga { background: green; }
+/* fixtures/start.css */
+.mc1b641f85_booga { color: red; background: blue; }
+.mc1b641f85_tooga { border: 1px solid white; }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL0RvY3VtZW50cy9Db2RlL21vZHVsYXItY3NzL2ZpeHR1cmVzL2ZvbGRlci9mb2xkZXIuY3NzIiwiLi4vLi4vLi4vLi4vRG9jdW1lbnRzL0NvZGUvbW9kdWxhci1jc3MvZml4dHVyZXMvbG9jYWwuY3NzIiwiLi4vLi4vLi4vLi4vRG9jdW1lbnRzL0NvZGUvbW9kdWxhci1jc3MvZml4dHVyZXMvc3RhcnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdDQUFDO0FBQ0QscUJBQVUsWUFBWSxFQUFFO0FDRHhCLHdCQUFDO0FBSUQsb0JBQVMsa0JBQWtCLEVBQUU7QUNKN0Isd0JBQUM7QUFFRCxvQkRGQSxXQUFnQixDQUNoQixpQkFBaUIsRUNDc0I7QUFDdkMsb0JGSEEsd0JBQXFCLEVFR2UiLCJmaWxlIjoic291cmNlLW1hcHMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIGZvbGRlcjogd2hpdGU7XG4uZm9sZGVyIHsgbWFyZ2luOiAycHg7IH1cbiIsIkB2YWx1ZSBvbmU6IHJlZDtcbkB2YWx1ZSB0d286IGJsdWU7XG5AdmFsdWUgZm9sZGVyIGZyb20gXCIuL2ZvbGRlci9mb2xkZXIuY3NzXCI7XG5cbi5ib29nYSB7IGJhY2tncm91bmQ6IGdyZWVuOyB9XG4ubG9vZ2EgeyBjb21wb3NlczogYm9vZ2E7IH1cbiIsIkB2YWx1ZSBvbmUsIHR3bywgZm9sZGVyIGZyb20gXCIuL2xvY2FsLmNzc1wiO1xuLndvb2dhIHsgY29tcG9zZXM6IGJvb2dhIGZyb20gXCIuL2xvY2FsLmNzc1wiOyB9XG4uYm9vZ2EgeyBjb2xvcjogb25lOyBiYWNrZ3JvdW5kOiB0d287IH1cbi50b29nYSB7IGJvcmRlcjogMXB4IHNvbGlkIGZvbGRlcjsgfVxuIl19 */"
 `;
 
 exports[`/browserify.js basic functionality should replace require() calls with the exported identifiers 1`] = `
 "(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\\"function\\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\\"Cannot find module '\\"+i+\\"'\\");throw a.code=\\"MODULE_NOT_FOUND\\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\\"function\\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-require('./packages/browserify/test/specimens/simple.css');
-},{\\"./packages/browserify/test/specimens/simple.css\\":2}],2:[function(require,module,exports){
+require(\\"./fixtures/simple.css\\");
+},{\\"./fixtures/simple.css\\":2}],2:[function(require,module,exports){
 module.exports = {
-    \\"wooga\\": \\"mc459e927d_wooga\\"
+    \\"str\\": \\"\\\\\\"string\\\\\\"\\",
+    \\"fooga\\": \\"mcc92a931a_fooga\\"
 };
 },{}]},{},[1]);
 "
 `;
 
 exports[`/browserify.js basic functionality should use the specified namer function 1`] = `
-"/* packages/browserify/test/specimens/keyframes.css */
+"/* ../modular-css-fixtures/keyframes.css */
 @keyframes a {
       0% { opacity: 0; }
     100% { opacity: 1; }
@@ -150,9 +154,9 @@ exports[`/browserify.js basic functionality should use the specified namer funct
 
 exports[`/browserify.js basic functionality should write out the complete exported identifiers when \`json\` is specified 1`] = `
 "{
-    \\"packages/browserify/test/specimens/multiple.css\\": {
-        \\"fooga\\": \\"mc9a6b8d68_fooga\\",
-        \\"wooga\\": \\"mc9a6b8d68_fooga mc9a6b8d68_wooga\\"
+    \\"fixtures/multiple.css\\": {
+        \\"fooga\\": \\"mcb24cb3bb_fooga\\",
+        \\"wooga\\": \\"mcb24cb3bb_fooga mcb24cb3bb_wooga\\"
     }
 }"
 `;
