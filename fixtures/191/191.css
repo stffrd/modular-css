@@ -1,6 +1,6 @@
-@value red from "./values.css";
-@value red from "./VALUES.css";
+@value red from "./case.css";
+@value red from "./CASE.css";
 
 .fooga {
-    composes: fooga from "./Values.css";
+    composes: fooga from "./Case.css";
 }
