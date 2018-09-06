@@ -1,13 +1,13 @@
 "use strict";
 
-const { find } = require("test-utils/fixtures.js");
+const { find, cwd } = require("test-utils/fixtures.js");
 
 const Processor = require("../../processor.js");
 
 describe("/issues", () => {
     describe("/261", () => {
         it("should allow colons in rules that also use :external()", async () => {
-            var processor = new Processor();
+            var processor = new Processor({ cwd });
             
             await processor.file(find("261/2.css"));
 
