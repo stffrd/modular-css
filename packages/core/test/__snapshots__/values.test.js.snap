@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`/processor.js values should support exporting imported variables 1`] = `
-"/* fixtures/values.css */
+"/* values.css */
 
-/* fixtures/value-import.css */
+/* value-import.css */
 .red {
     color: red;
 }
@@ -12,7 +12,7 @@ exports[`/processor.js values should support exporting imported variables 1`] = 
     color: green;
 }
 
-/* fixtures/value-export.css */
+/* value-export.css */
 .red {
     color: red;
 }
@@ -24,8 +24,8 @@ exports[`/processor.js values should support exporting imported variables 1`] = 
 `;
 
 exports[`/processor.js values should support importing variables from a file 1`] = `
-"/* fixtures/values.css */
-/* fixtures/value-import.css */
+"/* values.css */
+/* value-import.css */
 .red {
     color: red;
 }
@@ -48,7 +48,7 @@ Object {
 `;
 
 exports[`/processor.js values should support simple values 1`] = `
-"/* fixtures/values.css */
+"/* values.css */
 .a {
     color: red;
     font-family: Segoe UI
@@ -57,8 +57,8 @@ exports[`/processor.js values should support simple values 1`] = `
 `;
 
 exports[`/processor.js values should support value composition 1`] = `
-"/* fixtures/values.css */
-/* fixtures/value-composition.css */
+"/* values.css */
+/* value-composition.css */
 .red {
     color: red;
     background: blue;
@@ -67,8 +67,8 @@ exports[`/processor.js values should support value composition 1`] = `
 `;
 
 exports[`/processor.js values should support value namespaces 1`] = `
-"/* fixtures/values.css */
-/* fixtures/value-namespace.css */
+"/* values.css */
+/* value-namespace.css */
 .red {
     color: red;
 }
@@ -84,15 +84,15 @@ exports[`/processor.js values should support value namespaces 1`] = `
 `;
 
 exports[`/processor.js values should support value replacement in :external(...) 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/simple.css */
+/* simple.css */
 .fooga {
     color: red;
 }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/externals.css */
+/* externals.css */
 .a .fooga {
     color: green;
 }
