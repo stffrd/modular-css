@@ -25,13 +25,13 @@ exports.find = (search) => {
         throw new Error(`Multiple fixtures found, ${results.join(", ")}`);
     }
 
-    return results[0];
+    return path.resolve(results[0]);
 };
 
 exports.short = (search) => {
     const fixture = exports.find(search);
 
-    return path.relative(root, fixture);
+    return exports.relative(fixture);
 };
 
 let dir;
@@ -59,4 +59,6 @@ exports.copy = (from, to) => {
     shell.cp("-r", shell.test("-d", source) ? `${source}/*` : source, to);
 };
 
-exports.root = root;
+exports.relative = (file) => path.relative(root, file).replace(/\\/g, "/");
+
+exports.cwd = root;
