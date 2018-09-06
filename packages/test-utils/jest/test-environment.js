@@ -1,19 +1,16 @@
 "use strict";
 
-const path = require("path");
-
 const NodeEnvironment = require("jest-environment-node");
 
-const temp = require("temp-dir");
+const tempy = require("tempy");
 const shell = require("shelljs");
 
 // All this just to get global.fixtures available in tests...
 class CustomEnvironment extends NodeEnvironment {
     async setup() {
-        const dir = path.join(temp, "/modular-css-fixtures");
+        const dir = tempy.directory();
 
-        shell.rm("-rf", dir);
-        shell.cp("-rf", "./fixtures", dir);
+        shell.cp("-rf", "./fixtures/*", dir);
         
         this.global.fixtures = dir;
         
@@ -21,6 +18,8 @@ class CustomEnvironment extends NodeEnvironment {
     }
 
     async teardown() {
+        shell.rm("-rf", this.global.fixtures);
+
         await super.teardown();
     }
 
