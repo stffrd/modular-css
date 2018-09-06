@@ -3,7 +3,7 @@
 const fs = require("fs");
     
 const namer = require("test-utils/namer.js");
-const { find, temp } = require("test-utils/fixtures.js");
+const { cwd, find, temp } = require("test-utils/fixtures.js");
 
 const Processor = require("../../processor.js");
 
@@ -22,6 +22,7 @@ describe("/issues", () => {
 
         fn("should ignore case differences in file paths", async () => {
             const processor = new Processor({
+                cwd,
                 namer,
             });
             
