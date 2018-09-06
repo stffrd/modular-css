@@ -1,8 +1,9 @@
 "use strict";
 
-const namer    = require("test-utils/namer.js");
-const relative = require("test-utils/relative.js");
-const { find } = require("test-utils/fixtures.js");
+const path = require("path");
+
+const namer = require("test-utils/namer.js");
+const { find, cwd, relative } = require("test-utils/fixtures.js");
 
 const Processor = require("../processor.js");
 
@@ -13,6 +14,7 @@ describe("/processor.js", () => {
         beforeEach(() => {
             processor = new Processor({
                 namer,
+                cwd,
             });
         });
 
@@ -63,7 +65,7 @@ describe("/processor.js", () => {
 
                 processor.remove("./simple.css");
                     
-                expect(relative(processor.dependencies())).toMatchSnapshot();
+                expect(processor.dependencies().map(relative)).toMatchSnapshot();
             });
 
             it("should remove an absolute file", async () => {
@@ -74,7 +76,7 @@ describe("/processor.js", () => {
 
                 processor.remove(find("simple.css"));
                     
-                expect(relative(processor.dependencies())).toMatchSnapshot();
+                expect(processor.dependencies().map(relative)).toMatchSnapshot();
             });
             
             it("should remove multiple files", async () => {
@@ -87,7 +89,7 @@ describe("/processor.js", () => {
                     "./b.css",
                 ]);
                     
-                expect(relative(processor.dependencies())).toMatchSnapshot();
+                expect(processor.dependencies().map(relative)).toMatchSnapshot();
             });
             
             it("should return an array of removed files", async () => {
@@ -96,12 +98,10 @@ describe("/processor.js", () => {
                 await processor.string("./c.css", ".c { }");
                
                 expect(
-                    relative(
-                        processor.remove([
-                            "./a.css",
-                            "./b.css",
-                        ])
-                    )
+                    processor.remove([
+                        "./a.css",
+                        "./b.css",
+                    ]).map(relative)
                 ).toMatchSnapshot();
             });
         });
@@ -110,7 +110,7 @@ describe("/processor.js", () => {
             it("should return the dependencies of the specified file", async () => {
                 await processor.file(find("start.css"));
 
-                const dependencies = relative(processor.dependencies(find("start.css")));
+                const dependencies = processor.dependencies(find("start.css")).map(relative);
                 
                 expect(dependencies).toMatchSnapshot();
             });
@@ -118,7 +118,7 @@ describe("/processor.js", () => {
             it("should return the overall order of dependencies if no file is specified", async () => {
                 await processor.file(find("start.css"));
 
-                const dependencies = relative(processor.dependencies());
+                const dependencies = processor.dependencies().map(relative);
 
                 expect(dependencies).toMatchSnapshot();
             });
@@ -128,7 +128,7 @@ describe("/processor.js", () => {
             it("should return the dependents of the specified file", async () => {
                 await processor.file(find("start.css"));
 
-                const dependents = relative(processor.dependents(find("local.css")));
+                const dependents = processor.dependents(find("local.css")).map(relative);
 
                 expect(dependents).toMatchSnapshot();
             });
@@ -222,6 +222,7 @@ describe("/processor.js", () => {
                 await processor.file(find("start.css"));
                 
                 const result = await processor.output({
+                    to  : path.join(cwd, "./to.css"),
                     map : {
                         inline : false,
                     },
@@ -236,6 +237,7 @@ describe("/processor.js", () => {
                 var ran = false;
 
                 processor = new Processor({
+                    cwd,
                     resolvers : [
                         () => {
                             ran = true;
@@ -243,14 +245,12 @@ describe("/processor.js", () => {
                     ],
                 });
                 
-                expect(
-                    relative([
-                        processor._resolve(
-                            find("start.css"),
-                            "./local.css"
-                        ),
-                    ])
-                )
+                expect(relative(
+                    processor._resolve(
+                        find("start.css"),
+                        "./local.css"
+                    ),
+                ))
                 .toMatchSnapshot();
 
                 expect(ran).toBeTruthy();
@@ -258,19 +258,18 @@ describe("/processor.js", () => {
 
             it("should fall back to a default resolver", () => {
                 processor = new Processor({
+                    cwd,
                     resolvers : [
                         () => undefined,
                     ],
                 });
                 
-                expect(
-                    relative([
-                        processor._resolve(
-                            find("start.css"),
-                            "./local.css"
-                        ),
-                    ])
-                )
+                expect(relative(
+                    processor._resolve(
+                        find("start.css"),
+                        "./local.css"
+                    ),
+                ))
                 .toMatchSnapshot();
             });
         });

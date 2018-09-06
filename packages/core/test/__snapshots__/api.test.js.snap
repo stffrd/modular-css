@@ -1,35 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`/processor.js API ._resolve() should fall back to a default resolver 1`] = `
-Array [
-  "fixtures/local.css",
-]
-`;
+exports[`/processor.js API ._resolve() should fall back to a default resolver 1`] = `"local.css"`;
 
-exports[`/processor.js API ._resolve() should run resolvers until a match is found 1`] = `
-Array [
-  "fixtures/local.css",
-]
-`;
+exports[`/processor.js API ._resolve() should run resolvers until a match is found 1`] = `"local.css"`;
 
 exports[`/processor.js API .dependencies() should return the dependencies of the specified file 1`] = `
 Array [
-  "fixtures/folder/folder.css",
-  "fixtures/local.css",
+  "folder/folder.css",
+  "local.css",
 ]
 `;
 
 exports[`/processor.js API .dependencies() should return the overall order of dependencies if no file is specified 1`] = `
 Array [
-  "fixtures/folder/folder.css",
-  "fixtures/local.css",
-  "fixtures/start.css",
+  "folder/folder.css",
+  "local.css",
+  "start.css",
 ]
 `;
 
 exports[`/processor.js API .dependents() should return the dependents of the specified file 1`] = `
 Array [
-  "fixtures/start.css",
+  "start.css",
 ]
 `;
 
@@ -106,12 +98,12 @@ exports[`/processor.js API .file() should process an absolute file 4`] = `
 exports[`/processor.js API .output() should allow for seperate source map output 1`] = `
 Object {
   "file": "to.css",
-  "mappings": "AAAA,gCAAC;AACD,UAAU,YAAY,EAAE;ACDxB,wBAAC;AAID,SAAS,kBAAkB,EAAE;ACJ7B,wBAAC;AAED,SDFA,WAAgB,CAChB,iBAAiB,ECCsB;AACvC,SFHA,wBAAqB,EEGe",
+  "mappings": "AAAA,uBAAC;AACD,UAAU,YAAY,EAAE;ACDxB,eAAC;AAID,SAAS,kBAAkB,EAAE;ACJ7B,eAAC;AAED,SDFA,WAAgB,CAChB,iBAAiB,ECCsB;AACvC,SFHA,wBAAqB,EEGe",
   "names": Array [],
   "sources": Array [
-    "fixtures/folder/folder.css",
-    "fixtures/local.css",
-    "fixtures/start.css",
+    "folder/folder.css",
+    "local.css",
+    "start.css",
   ],
   "sourcesContent": Array [
     "@value folder: white;
@@ -135,11 +127,11 @@ Object {
 `;
 
 exports[`/processor.js API .output() should avoid duplicating files in the output 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/start.css */
+/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
@@ -147,17 +139,17 @@ exports[`/processor.js API .output() should avoid duplicating files in the outpu
 
 exports[`/processor.js API .output() should generate a JSON structure of all the compositions 1`] = `
 Object {
-  "fixtures/folder/folder.css": Object {
+  "folder/folder.css": Object {
     "folder": "folder",
   },
-  "fixtures/local.css": Object {
+  "local.css": Object {
     "booga": "booga",
     "folder": "white",
     "looga": "booga looga",
     "one": "red",
     "two": "blue",
   },
-  "fixtures/start.css": Object {
+  "start.css": Object {
     "booga": "booga",
     "folder": "white",
     "one": "red",
@@ -169,36 +161,36 @@ Object {
 `;
 
 exports[`/processor.js API .output() should generate css representing the output from all added files 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/simple.css */
+/* simple.css */
 .fooga {
     color: red;
 }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/start.css */
+/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
 `;
 
 exports[`/processor.js API .output() should order output by dependencies, then alphabetically 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/folder/folder2.css */
+/* folder/folder2.css */
 .folder2 { color: green; }
-/* fixtures/folder/subfolder/subfolder.css */
+/* folder/subfolder/subfolder.css */
 .subfolder { color: yellow; }
-/* fixtures/composes.css */
-/* fixtures/deep.css */
+/* composes.css */
+/* deep.css */
 .deep {
     
     color: black;
 }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/start.css */
+/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
@@ -207,25 +199,25 @@ exports[`/processor.js API .output() should order output by dependencies, then a
 exports[`/processor.js API .output() should reject if called before input has been processed 1`] = `[Error: File processing not complete]`;
 
 exports[`/processor.js API .output() should return a postcss result 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/start.css */
+/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
 `;
 
 exports[`/processor.js API .output() should support returning output for specified absolute files 1`] = `
-"/* fixtures/start.css */
+"/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
 `;
 
 exports[`/processor.js API .output() should support returning output for specified relative files 1`] = `
-"/* fixtures/start.css */
+"/* start.css */
 .booga { color: red; background: blue; }
 .tooga { border: 1px solid white; }
 "
