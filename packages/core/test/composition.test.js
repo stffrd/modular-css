@@ -2,8 +2,8 @@
 
 const dedent = require("dedent");
 
-const namer  = require("test-utils/namer.js");
-const { find } = require("test-utils/fixtures.js");
+const namer = require("test-utils/namer.js");
+const { find, cwd } = require("test-utils/fixtures.js");
     
 const Processor = require("../processor.js");
 
@@ -13,6 +13,7 @@ describe("/processor.js", () => {
         
         beforeEach(() => {
             processor = new Processor({
+                cwd,
                 namer,
             });
         });
