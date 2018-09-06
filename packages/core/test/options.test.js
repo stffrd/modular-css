@@ -4,8 +4,7 @@ const path = require("path");
 
 const dedent   = require("dedent");
 const namer    = require("test-utils/namer.js");
-const relative = require("test-utils/relative.js");
-const { find } = require("test-utils/fixtures.js");
+const { cwd, find, relative } = require("test-utils/fixtures.js");
 
 const Processor = require("../processor.js");
 
@@ -25,22 +24,22 @@ describe("/processor.js", () => {
     describe("options", () => {
         describe("cwd", () => {
             it("should use an absolute path", async () => {
-                const cwd = find("folder");
-                const processor = new Processor({ cwd });
+                const dir = find("folder");
+                const processor = new Processor({ cwd : dir });
                 
                 const result = await processor.file("./folder.css");
 
-                expect(processor.options.cwd).toBe(cwd);
+                expect(processor.options.cwd).toBe(dir);
                 expect(result.file).toBe(find("folder.css"));
             });
 
             it("should accept a relative path but make it absolute", async () => {
-                const cwd = path.relative(process.cwd(), find("folder"));
-                const processor = new Processor({ cwd });
+                const dir = path.relative(process.cwd(), find("folder"));
+                const processor = new Processor({ cwd : dir });
                 
                 const result = await processor.file("./folder.css");
 
-                expect(processor.options.cwd).toBe(path.resolve(cwd));
+                expect(processor.options.cwd).toBe(path.resolve(dir));
                 expect(result.file).toBe(find("folder.css"));
             });
         });
@@ -48,12 +47,13 @@ describe("/processor.js", () => {
         describe("namer", () => {
             it("should use a custom naming function", async () => {
                 const processor = new Processor({
+                    cwd,
                     namer : (filename, selector) =>
-                        `${relative([ filename ])[0].replace(/[\/\.]/g, "_")}_${selector}`,
+                        `${relative(filename).replace(/[\/\.]/g, "_")}_${selector}`,
                 });
                     
                 const result = await processor.string(
-                    "./packages/core/test/fixtures/simple.css",
+                    "./fixtures/simple.css",
                     ".wooga { }"
                 );
 
@@ -65,6 +65,7 @@ describe("/processor.js", () => {
 
             it("should require a namer if a string is passed", async () => {
                 const processor = new Processor({
+                    cwd,
                     namer : "modular-css-namer",
                 });
                     
@@ -78,11 +79,12 @@ describe("/processor.js", () => {
 
             it("should use the default naming function if a non-function is passed", async () => {
                 const processor = new Processor({
+                    cwd,
                     namer : false,
                 });
                     
                 const result = await processor.string(
-                    "./packages/core/test/fixtures/simple.css",
+                    "./fixtures/simple.css",
                     ".wooga { }"
                 );
                 
@@ -93,6 +95,7 @@ describe("/processor.js", () => {
         describe("map", () => {
             it("should generate source maps", async () => {
                 const processor = new Processor({
+                    cwd,
                     namer,
                     map : true,
                 });
@@ -100,8 +103,8 @@ describe("/processor.js", () => {
                 await processor.file(find("start.css"));
                     
                 const result = await processor.output({
-                    from : "packages/core/test/fixtures/rewrite.css",
-                    to   : "out.css",
+                    from : find("values.css"),
+                    to   : path.join(cwd, "output/out.css"),
                 });
 
                 expect(result.css).toMatchSnapshot();
@@ -109,6 +112,7 @@ describe("/processor.js", () => {
 
             it("should generate external source maps", async () => {
                 const processor = new Processor({
+                    cwd,
                     namer,
                     map : {
                         internal : false,
@@ -117,8 +121,8 @@ describe("/processor.js", () => {
                 
                 await processor.file(find("start.css"));
                 const result = await processor.output({
-                    from : "packages/core/test/fixtures/rewrite.css",
-                    to   : "out.css",
+                    from : find("values.css"),
+                    to   : path.join(cwd, "output/out.css"),
                 });
 
                 expect(result.css).toMatchSnapshot();
@@ -128,6 +132,7 @@ describe("/processor.js", () => {
         describe("exportGlobals", () => {
             it("should not export :global values when exportGlobals is false", async () => {
                 const processor = new Processor({
+                    cwd,
                     exportGlobals : false,
                 });
                 
@@ -145,10 +150,10 @@ describe("/processor.js", () => {
 
         describe("rewrite", () => {
             it("should rewrite url() references by default", async () => {
-                const processor = new Processor();
+                const processor = new Processor({ cwd });
 
                 await processor.string(
-                    "fixtures/rewrite.css",
+                    find("values.css"),
                     dedent(`
                         .a {
                             background: url("img.png");
@@ -157,15 +162,18 @@ describe("/processor.js", () => {
                 );
 
                 const result = await processor.output({
-                    from : "fixtures/rewrite.css",
-                    to   : "output/rewrite.css",
+                    from : find("values.css"),
+                    to   : path.join(cwd, "output/rewrite.css"),
                 });
                 
                 expect(result.css).toMatchSnapshot();
             });
 
             it("should not rewrite url() references when falsey", async () => {
-                const processor = new Processor({ rewrite : false });
+                const processor = new Processor({
+                    cwd,
+                    rewrite : false,
+                });
 
                 await processor.string(
                     "fixtures/rewrite.css",
@@ -177,8 +185,8 @@ describe("/processor.js", () => {
                 );
 
                 const result = await processor.output({
-                    from : "fixtures/rewrite.css",
-                    to   : "./output/rewrite.css",
+                    from : find("values.css"),
+                    to   : path.join(cwd, "output/rewrite.css"),
                 });
                 
                 expect(result.css).toMatchSnapshot();
@@ -186,6 +194,7 @@ describe("/processor.js", () => {
             
             it("should pass through to postcss-url as config", async () => {
                 const processor = new Processor({
+                    cwd,
                     rewrite : {
                         url : "inline",
                     },
@@ -194,8 +203,8 @@ describe("/processor.js", () => {
                 await processor.file(find("rewrite-data-uri.css"));
 
                 const result = await processor.output({
-                    from : "fixtures/rewrite.css",
-                    to   : "./output/rewrite.css",
+                    from : find("values.css"),
+                    to   : path.join(cwd, "output/rewrite.css"),
                 });
                 
                 expect(result.css).toMatchSnapshot();
@@ -206,6 +215,7 @@ describe("/processor.js", () => {
             describe("before", () => {
                 it("should run sync postcss plugins before processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         before : [ sync ],
                     });
@@ -216,7 +226,7 @@ describe("/processor.js", () => {
                     );
 
                     const result = await processor.output({
-                        from : "fixtures/sync-before.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -224,6 +234,7 @@ describe("/processor.js", () => {
 
                 it("should run async postcss plugins before processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         before : [ async ],
                     });
@@ -234,7 +245,7 @@ describe("/processor.js", () => {
                     );
 
                     const result = await processor.output({
-                        from : "fixtures/async-before.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -244,6 +255,7 @@ describe("/processor.js", () => {
             describe("processing", () => {
                 it("should run sync postcss plugins processing processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         processing : [ sync ],
                     });
@@ -254,7 +266,7 @@ describe("/processor.js", () => {
                     );
                     
                     const result = await processor.output({
-                        from : "fixtures/sync-processing.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -262,6 +274,7 @@ describe("/processor.js", () => {
 
                 it("should run async postcss plugins processing processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         processing : [ async ],
                     });
@@ -272,7 +285,7 @@ describe("/processor.js", () => {
                     );
                     
                     const result = await processor.output({
-                        from : "fixtures/async-processing.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -280,6 +293,7 @@ describe("/processor.js", () => {
 
                 it("should include exports from 'modular-css-export' modules", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         processing : [ (css, result) => {
                             result.messages.push({
@@ -303,13 +317,13 @@ describe("/processor.js", () => {
             
             describe("after", () => {
                 it("should use postcss-url by default", async () => {
-                    const processor = new Processor();
+                    const processor = new Processor({ cwd });
 
                     await processor.file(find("relative.css"));
                     
                     const result = await processor.output({
-                        from : "fixtures/rewrite.css",
-                        to   : "./output/relative.css",
+                        from : find("values.css"),
+                        to   : path.join(cwd, "output/relative.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -317,6 +331,7 @@ describe("/processor.js", () => {
                 
                 it("should run sync postcss plugins", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         after : [ sync ],
                     });
@@ -324,8 +339,8 @@ describe("/processor.js", () => {
                     await processor.file(find("relative.css"));
                     
                     const result = await processor.output({
-                        from : "fixtures/rewrite.css",
-                        to   : "./output/relative.css",
+                        from : find("values.css"),
+                        to   : path.join(cwd, "output/relative.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -333,6 +348,7 @@ describe("/processor.js", () => {
                 
                 it("should run async postcss plugins", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         after : [ async ],
                     });
@@ -340,8 +356,8 @@ describe("/processor.js", () => {
                     await processor.file(find("relative.css"));
                     
                     const result = await processor.output({
-                        from : "fixtures/rewrite.css",
-                        to   : "./output/relative.css",
+                        from : find("values.css"),
+                        to   : path.join(cwd, "output/relative.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -351,6 +367,7 @@ describe("/processor.js", () => {
             describe("done", () => {
                 it("should run sync postcss plugins done processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         done : [ sync ],
                     });
@@ -361,7 +378,7 @@ describe("/processor.js", () => {
                     );
 
                     const result = await processor.output({
-                        from : "fixtures/sync-done.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
@@ -369,6 +386,7 @@ describe("/processor.js", () => {
                 
                 it("should run async postcss plugins done processing", async () => {
                     const processor = new Processor({
+                        cwd,
                         namer,
                         done : [ async ],
                     });
@@ -379,7 +397,7 @@ describe("/processor.js", () => {
                     );
 
                     const result = await processor.output({
-                        from : "fixtures/async-done.css",
+                        from : find("values.css"),
                     });
 
                     expect(result.css).toMatchSnapshot();
