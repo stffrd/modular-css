@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`/processor.js externals should support overriding external values 1`] = `
-"/* fixtures/folder/folder.css */
+"/* folder/folder.css */
 .folder { margin: 2px; }
-/* fixtures/simple.css */
+/* simple.css */
 .fooga {
     color: red;
 }
-/* fixtures/local.css */
+/* local.css */
 .booga { background: green; }
-/* fixtures/externals.css */
+/* externals.css */
 .a .fooga {
     color: green;
 }
