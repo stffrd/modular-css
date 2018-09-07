@@ -3,7 +3,7 @@
 
 const { rollup } = require("rollup");
 
-const { temp, find } = require("test-utils/fixtures.js");
+const { cwd, temp, find } = require("test-utils/fixtures.js");
 const namer = require("test-utils/namer.js");
 
 require("test-utils/expect-dir-snapshot.js");
@@ -37,6 +37,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                     }),
@@ -67,6 +68,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                     }),
@@ -97,6 +99,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                     }),
@@ -133,6 +136,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                     }),
@@ -165,6 +169,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                     }),
@@ -195,6 +200,7 @@ describe("/rollup.js", () => {
 
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         map,
                         json,

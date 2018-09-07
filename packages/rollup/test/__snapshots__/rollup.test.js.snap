@@ -5,7 +5,7 @@ exports[`/rollup.js should accept an existing processor instance 1`] = `
 .fake {
     color: yellow;
 }
-/* fixtures/simple.css */
+/* simple.css */
 .fooga {
     color: red;
 }"
@@ -38,7 +38,7 @@ exports[`/rollup.js should correctly pass to/from params for relative paths 1`] 
 `;
 
 exports[`/rollup.js should generate CSS 1`] = `
-"/* fixtures/simple.css */
+"/* simple.css */
 .fooga {
     color: red;
 }
@@ -47,7 +47,7 @@ exports[`/rollup.js should generate CSS 1`] = `
 
 exports[`/rollup.js should generate JSON 1`] = `
 "{
-    \\"fixtures/simple.css\\": {
+    \\"simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
         \\"fooga\\": \\"fooga\\"
     }
@@ -56,7 +56,7 @@ exports[`/rollup.js should generate JSON 1`] = `
 
 exports[`/rollup.js should generate JSON with a custom name 1`] = `
 "{
-    \\"fixtures/simple.css\\": {
+    \\"simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
         \\"fooga\\": \\"fooga\\"
     }
@@ -76,7 +76,7 @@ console.log(css);
 exports[`/rollup.js should generate external source maps 1`] = `
 Object {
   "file": Any<String>,
-  "mappings": "AAAA,yBAAC;AAED;IACI,WAAW;CACd",
+  "mappings": "AAAA,gBAAC;AAED;IACI,WAAW;CACd",
   "names": Array [],
   "sources": Any<Array>,
   "sourcesContent": Array [
@@ -92,7 +92,7 @@ Object {
 `;
 
 exports[`/rollup.js should generate external source maps 2`] = `
-"/* fixtures/simple.css */
+"/* simple.css */
 .fooga {
     color: red;
 }
@@ -101,7 +101,7 @@ exports[`/rollup.js should generate external source maps 2`] = `
 `;
 
 exports[`/rollup.js should handle assetFileNames being undefined 1`] = `
-"/* fixtures/simple.css */
+"/* simple.css */
 .fooga {
     color: red;
 }
@@ -109,7 +109,7 @@ exports[`/rollup.js should handle assetFileNames being undefined 1`] = `
 `;
 
 exports[`/rollup.js should not output sourcemaps when they are disabled 1`] = `
-"/* fixtures/simple.css */
+"/* simple.css */
 .fooga {
     color: red;
 }
@@ -144,11 +144,11 @@ console.log(css);
 `;
 
 exports[`/rollup.js should respect the CSS dependency tree 2`] = `
-"/* fixtures/simple.css */
+"/* simple.css */
 .fooga {
     color: red;
 }
-/* fixtures/dependencies.css */
+/* dependencies.css */
 .wooga {
 
     background: blue;
@@ -186,13 +186,11 @@ Array [
 `;
 
 exports[`/rollup.js shouldn't disable sourcemap generation 1`] = `
-SourceMap {
+Object {
   "file": "simple.js",
   "mappings": ";;;;;AAEA,OAAO,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC",
   "names": Array [],
-  "sources": Array [
-    "fixtures/simple.js",
-  ],
+  "sources": Any<Array>,
   "sourcesContent": Array [
     "import css from \\"./simple.css\\";
 
@@ -207,20 +205,20 @@ exports[`/rollup.js shouldn't over-remove files from an existing processor insta
 Array [
   Object {
     "file": "assets\\\\repeated-references.css",
-    "text": "/* fixtures/repeated-references/d.css */
+    "text": "/* repeated-references/d.css */
 .d {
     color: darkblue;
 }
-/* fixtures/repeated-references/c.css */
+/* repeated-references/c.css */
 .c {
     color: cadetblue;
 }
-/* fixtures/repeated-references/b.css */
+/* repeated-references/b.css */
 .b {
     
     color: blue;
 }
-/* fixtures/repeated-references/a.css */
+/* repeated-references/a.css */
 .a {
 
     color: red;

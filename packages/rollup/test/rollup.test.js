@@ -9,7 +9,7 @@ const dedent = require("dedent");
 const shell = require("shelljs");
 
 const namer = require("test-utils/namer.js");
-const { temp, find, copy } = require("test-utils/fixtures.js");
+const { cwd, temp, find, copy } = require("test-utils/fixtures.js");
 
 require("test-utils/expect-file-snapshot.js");
 require("test-utils/expect-dir-snapshot.js");
@@ -40,6 +40,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                 }),
             ],
@@ -55,6 +56,7 @@ describe("/rollup.js", () => {
             input   : find("tree-shaking.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                 }),
             ],
@@ -70,6 +72,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     map,
                 }),
@@ -90,6 +93,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     map,
                 }),
@@ -137,6 +141,7 @@ describe("/rollup.js", () => {
             input   : find("no-css.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                 }),
             ],
@@ -156,6 +161,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     json : true,
                 }),
@@ -176,6 +182,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     json : "custom.json",
                 }),
@@ -196,6 +203,7 @@ describe("/rollup.js", () => {
             input   : find("named.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                 }),
             ],
@@ -211,6 +219,7 @@ describe("/rollup.js", () => {
             input   : find("style-export.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     styleExport : true,
                 }),
@@ -231,6 +240,7 @@ describe("/rollup.js", () => {
             input   : find("style-export.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     styleExport : true,
                     done        : [
@@ -249,6 +259,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     map : {
                         inline : false,
@@ -281,6 +292,7 @@ describe("/rollup.js", () => {
             onwarn  : (msg) => expect(msg).toMatchSnapshot({ id : expect.any(String) }),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                 }),
             ],
@@ -299,6 +311,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     namedExports : false,
                 }),
@@ -318,6 +331,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     sourcemap : true,
                 }),
@@ -331,7 +345,9 @@ describe("/rollup.js", () => {
             sourcemap : true,
         });
 
-        expect(result.map).toMatchSnapshot();
+        expect(result.map).toMatchSnapshot({
+            sources : expect.any(Array),
+        });
     });
     
     it("should not output sourcemaps when they are disabled", async () => {
@@ -339,6 +355,7 @@ describe("/rollup.js", () => {
             input   : find("simple.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     map,
                 }),
@@ -369,6 +386,7 @@ describe("/rollup.js", () => {
             input   : find("dependencies.js"),
             plugins : [
                 plugin({
+                    cwd,
                     namer,
                     map,
                 }),
@@ -389,6 +407,7 @@ describe("/rollup.js", () => {
     
     it("should accept an existing processor instance", async () => {
         const processor = new Processor({
+            cwd,
             namer,
             map,
         });
@@ -422,6 +441,7 @@ describe("/rollup.js", () => {
     // causes tests to run forever for some reason...
     it("shouldn't over-remove files from an existing processor instance", async () => {
         const processor = new Processor({
+            cwd,
             namer,
             map,
         });
@@ -457,6 +477,7 @@ describe("/rollup.js", () => {
                     input   : find("simple.js"),
                     plugins : [
                         plugin({
+                            cwd,
                             namer,
                             before : [ error ],
                         }),
@@ -474,6 +495,7 @@ describe("/rollup.js", () => {
                 input   : find("simple.js"),
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         after : [ error ],
                     }),
@@ -497,6 +519,7 @@ describe("/rollup.js", () => {
                 input   : find("simple.js"),
                 plugins : [
                     plugin({
+                        cwd,
                         namer,
                         done : [ error ],
                     }),

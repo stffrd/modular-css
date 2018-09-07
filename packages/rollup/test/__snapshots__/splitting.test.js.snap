@@ -4,7 +4,7 @@ exports[`/rollup.js code splitting should ouput only 1 JSON file 1`] = `
 Array [
   Object {
     "file": "common.css",
-    "text": "/* fixtures/simple.css */
+    "text": "/* simple.css */
 .fooga {
     color: red;
 }
@@ -12,7 +12,7 @@ Array [
   },
   Object {
     "file": "dependencies.css",
-    "text": "/* fixtures/dependencies.css */
+    "text": "/* dependencies.css */
 .wooga {
 
     background: blue;
@@ -22,10 +22,10 @@ Array [
   Object {
     "file": "exports.json",
     "text": "{
-    \\"fixtures/dependencies.css\\": {
+    \\"dependencies.css\\": {
         \\"wooga\\": \\"fooga wooga\\"
     },
-    \\"fixtures/simple.css\\": {
+    \\"simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
         \\"fooga\\": \\"fooga\\"
     }
@@ -38,7 +38,7 @@ exports[`/rollup.js code splitting should support dynamic imports 1`] = `
 Array [
   Object {
     "file": "a.css",
-    "text": "/* fixtures/dynamic-imports/a.css */
+    "text": "/* dynamic-imports/a.css */
 .a {
 
     color: aqua;
@@ -47,7 +47,7 @@ Array [
   },
   Object {
     "file": "b.css",
-    "text": "/* fixtures/dynamic-imports/b.css */
+    "text": "/* dynamic-imports/b.css */
 .b {
     color: blue;
 }
@@ -55,7 +55,7 @@ Array [
   },
   Object {
     "file": "c.css",
-    "text": "/* fixtures/dynamic-imports/c.css */
+    "text": "/* dynamic-imports/c.css */
 .c {
     
     color: cyan;
@@ -64,7 +64,7 @@ Array [
   },
   Object {
     "file": "common.css",
-    "text": "/* fixtures/dynamic-imports/d.css */
+    "text": "/* dynamic-imports/d.css */
 .d {
     color: darkred;
 }
@@ -77,7 +77,7 @@ exports[`/rollup.js code splitting should support manual chunks 1`] = `
 Array [
   Object {
     "file": "a.css",
-    "text": "/* fixtures/manual-chunks/a.css */
+    "text": "/* manual-chunks/a.css */
 .a {
 
     color: red;
@@ -86,7 +86,7 @@ Array [
   },
   Object {
     "file": "b.css",
-    "text": "/* fixtures/manual-chunks/b.css */
+    "text": "/* manual-chunks/b.css */
 .b {
 
     color: blue;
@@ -95,8 +95,8 @@ Array [
   },
   Object {
     "file": "common.css",
-    "text": "/* fixtures/manual-chunks/d.css */
-/* fixtures/manual-chunks/c.css */
+    "text": "/* manual-chunks/d.css */
+/* manual-chunks/c.css */
 .c {
     color: green;
     background: darkred;
@@ -110,7 +110,7 @@ exports[`/rollup.js code splitting should support splitting up CSS files 1`] = `
 Array [
   Object {
     "file": "common.css",
-    "text": "/* fixtures/simple.css */
+    "text": "/* simple.css */
 .fooga {
     color: red;
 }
@@ -118,7 +118,7 @@ Array [
   },
   Object {
     "file": "dependencies.css",
-    "text": "/* fixtures/dependencies.css */
+    "text": "/* dependencies.css */
 .wooga {
 
     background: blue;
@@ -132,7 +132,7 @@ exports[`/rollup.js code splitting should support splitting up CSS files w/ shar
 Array [
   Object {
     "file": "a.css",
-    "text": "/* fixtures/css-chunks/a.css */
+    "text": "/* css-chunks/a.css */
 .a {
 
     color: aqua;
@@ -141,7 +141,7 @@ Array [
   },
   Object {
     "file": "b.css",
-    "text": "/* fixtures/css-chunks/b.css */
+    "text": "/* css-chunks/b.css */
 .b {
     
     color: blue;
@@ -150,7 +150,7 @@ Array [
   },
   Object {
     "file": "chunk.css",
-    "text": "/* fixtures/css-chunks/c.css */
+    "text": "/* css-chunks/c.css */
 .c {
 
     color: cyan;
@@ -159,7 +159,7 @@ Array [
   },
   Object {
     "file": "common.css",
-    "text": "/* fixtures/css-chunks/shared.css */
+    "text": "/* css-chunks/shared.css */
 .shared {
     color: snow;
 }
@@ -172,16 +172,16 @@ exports[`/rollup.js code splitting shouldn't put bundle-specific CSS in common.c
 Array [
   Object {
     "file": "a.css",
-    "text": "/* fixtures/common-splitting/shared.css */
+    "text": "/* common-splitting/shared.css */
 .shared {
     color: snow;
 }
-/* fixtures/common-splitting/a.css */
+/* common-splitting/a.css */
 .a {
 
     color: aqua;
 }
-/* fixtures/common-splitting/b.css */
+/* common-splitting/b.css */
 .b {
 
     color: blue;
@@ -190,7 +190,7 @@ Array [
   },
   Object {
     "file": "c.css",
-    "text": "/* fixtures/common-splitting/c.css */
+    "text": "/* common-splitting/c.css */
 .c {
     color: cyan;
 }
