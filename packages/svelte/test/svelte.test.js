@@ -1,13 +1,12 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 
 const svelte = require("svelte");
 const dedent = require("dedent");
 
 const namer = require("test-utils/namer.js");
-const { find, read, temp, write } = require("test-utils/fixtures.js");
+const { cwd, find, read, temp, write } = require("test-utils/fixtures.js");
     
 const plugin = require("../svelte.js");
 
@@ -15,6 +14,7 @@ describe("/svelte.js", () => {
     it("should extract CSS from a <style> tag", async () => {
         const { processor, preprocess } = plugin({
             namer,
+            cwd,
         });
         
         const processed = await svelte.preprocess(
@@ -38,6 +38,7 @@ describe("/svelte.js", () => {
     `("should extract CSS from a <link> tag ($title)", async ({ fixture }) => {
         const { processor, preprocess } = plugin({
             namer,
+            cwd,
         });
 
         const processed = await svelte.preprocess(
@@ -53,7 +54,9 @@ describe("/svelte.js", () => {
     });
 
     it("should ignore files without <style> blocks", async () => {
-        const { processor, preprocess } = plugin();
+        const { processor, preprocess } = plugin({
+            cwd,
+        });
 
         const processed = await svelte.preprocess(
             dedent(`
@@ -88,6 +91,7 @@ describe("/svelte.js", () => {
         const { preprocess } = plugin({
             namer,
             strict,
+            cwd,
         });
         
         if(strict) {
@@ -116,6 +120,7 @@ describe("/svelte.js", () => {
         const { preprocess } = plugin({
             css : "./output/svelte.css",
             namer,
+            cwd,
         });
 
         await expect(
