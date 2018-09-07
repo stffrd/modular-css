@@ -4,7 +4,7 @@ const dedent = require("dedent");
     
 const Processor = require("modular-css-core");
 const namer = require("test-utils/namer.js");
-const { find } = require("test-utils/fixtures.js");
+const { cwd, find } = require("test-utils/fixtures.js");
 
 const paths = require("../paths.js");
 
@@ -22,7 +22,7 @@ describe("modular-css-paths", () => {
     it("should return the absolute path if a file is found", () => {
         const fn = paths({
             paths : [
-                "./fixtures/one",
+                find("one"),
             ],
         });
 
@@ -32,8 +32,8 @@ describe("modular-css-paths", () => {
     it("should check multiple paths for files & return the first match", () => {
         const fn = paths({
             paths : [
-                "./fixtures/one",
-                "./fixtures/one/sub",
+                find("one"),
+                find("sub"),
             ],
         });
 
@@ -42,19 +42,20 @@ describe("modular-css-paths", () => {
 
     it("should be usable as a modular-css resolver", async () => {
         const processor = new Processor({
+            cwd,
             namer,
             resolvers : [
                 paths({
                     paths : [
-                        "./fixtures/one/sub",
-                        "./fixtures/two",
+                        find("sub"),
+                        find("two"),
                     ],
                 }),
             ],
         });
         
         await processor.string(
-            "./fixtures/one/start.css",
+            "./one/start.css",
             dedent(`
                 @value sub from "./sub.css";
                 
