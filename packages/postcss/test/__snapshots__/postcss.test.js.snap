@@ -2,17 +2,17 @@
 
 exports[`/postcss.js should accept a \`json\` property and write exports to that file 1`] = `
 "{
-    \\"fixtures/folder/folder.css\\": {
+    \\"folder/folder.css\\": {
         \\"folder\\": \\"folder\\"
     },
-    \\"fixtures/local.css\\": {
+    \\"local.css\\": {
         \\"folder\\": \\"white\\",
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"booga\\": \\"booga\\",
         \\"looga\\": \\"booga looga\\"
     },
-    \\"fixtures/start.css\\": {
+    \\"start.css\\": {
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"folder\\": \\"white\\",
@@ -25,7 +25,7 @@ exports[`/postcss.js should accept a \`json\` property and write exports to that
 
 exports[`/postcss.js should accept json args in either position with postcss 1`] = `
 "{
-    \\"fixtures/simple.css\\": {
+    \\"simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
         \\"fooga\\": \\"fooga\\"
     }
@@ -37,7 +37,7 @@ exports[`/postcss.js should accept normal processor options 1`] = `
     color: red;
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL3NpbXBsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7SUFDSSxXQUFXO0NBQ2QiLCJmaWxlIjoiZml4dHVyZXMvc2ltcGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkB2YWx1ZSBzdHI6IFwic3RyaW5nXCI7XG5cbi5mb29nYSB7XG4gICAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL0FwcERhdGEvTG9jYWwvVGVtcC9jZjllNDhkNTUwMTQ2YmMxMGZkMDc4ZjJlM2M0MWJjNC9zaW1wbGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0lBQ0ksV0FBVztDQUNkIiwiZmlsZSI6Ii4uLy4uLy4uL0FwcERhdGEvTG9jYWwvVGVtcC9jZjllNDhkNTUwMTQ2YmMxMGZkMDc4ZjJlM2M0MWJjNC9zaW1wbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIHN0cjogXCJzdHJpbmdcIjtcblxuLmZvb2dhIHtcbiAgICBjb2xvcjogcmVkO1xufVxuIl19 */"
 `;
 
 exports[`/postcss.js should be usable like a normal postcss plugin 1`] = `
@@ -45,12 +45,12 @@ exports[`/postcss.js should be usable like a normal postcss plugin 1`] = `
     color: red;
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmVzL3NpbXBsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7SUFDSSxXQUFXO0NBQ2QiLCJmaWxlIjoiZml4dHVyZXMvc2ltcGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkB2YWx1ZSBzdHI6IFwic3RyaW5nXCI7XG5cbi5mb29nYSB7XG4gICAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL0FwcERhdGEvTG9jYWwvVGVtcC9jZjllNDhkNTUwMTQ2YmMxMGZkMDc4ZjJlM2M0MWJjNC9zaW1wbGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0lBQ0ksV0FBVztDQUNkIiwiZmlsZSI6Ii4uLy4uLy4uL0FwcERhdGEvTG9jYWwvVGVtcC9jZjllNDhkNTUwMTQ2YmMxMGZkMDc4ZjJlM2M0MWJjNC9zaW1wbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHZhbHVlIHN0cjogXCJzdHJpbmdcIjtcblxuLmZvb2dhIHtcbiAgICBjb2xvcjogcmVkO1xufVxuIl19 */"
 `;
 
 exports[`/postcss.js should output json when used within postcss 1`] = `
 "{
-    \\"fixtures/simple.css\\": {
+    \\"simple.css\\": {
         \\"str\\": \\"\\\\\\"string\\\\\\"\\",
         \\"fooga\\": \\"fooga\\"
     }
@@ -86,17 +86,17 @@ exports[`/postcss.js should process CSS with dependencies and output the result 
 
 exports[`/postcss.js should use output filepath for json if a custom path isn't provided 1`] = `
 "{
-    \\"fixtures/folder/folder.css\\": {
+    \\"folder/folder.css\\": {
         \\"folder\\": \\"folder\\"
     },
-    \\"fixtures/local.css\\": {
+    \\"local.css\\": {
         \\"folder\\": \\"white\\",
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"booga\\": \\"booga\\",
         \\"looga\\": \\"booga looga\\"
     },
-    \\"fixtures/start.css\\": {
+    \\"start.css\\": {
         \\"one\\": \\"red\\",
         \\"two\\": \\"blue\\",
         \\"folder\\": \\"white\\",
