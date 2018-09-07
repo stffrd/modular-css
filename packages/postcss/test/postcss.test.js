@@ -4,7 +4,7 @@ const fs = require("fs");
     
 const postcss = require("postcss");
 const namer = require("test-utils/namer.js");
-const { find, temp, read } = require("test-utils/fixtures.js");
+const { cwd, find, temp, read } = require("test-utils/fixtures.js");
 
 require("test-utils/expect-file-snapshot.js");
 
@@ -17,6 +17,7 @@ const process = (file, opts = {}) =>
             Object.create(null),
             {
                 from : file,
+                cwd,
                 namer,
             },
             opts
@@ -77,6 +78,7 @@ describe("/postcss.js", () => {
     it("should be usable like a normal postcss plugin", async () => {
         const processor = postcss([
             plugin({
+                cwd,
                 namer : () => "a",
             }),
         ]);
@@ -94,6 +96,7 @@ describe("/postcss.js", () => {
     it("should output json when used within postcss", async () => {
         const processor = postcss([
             plugin({
+                cwd,
                 namer,
             }),
         ]);
@@ -109,6 +112,7 @@ describe("/postcss.js", () => {
     it("should accept json args in either position with postcss", async () => {
         var processor = postcss([
             plugin({
+                cwd,
                 namer,
                 json : temp("simple.json"),
             }),
