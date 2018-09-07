@@ -12,6 +12,7 @@ const namer = require("test-utils/namer.js");
 const { cwd, temp, find, copy } = require("test-utils/fixtures.js");
 
 require("test-utils/expect-file-snapshot.js");
+require("test-utils/expect-map-snapshot.js");
 require("test-utils/expect-dir-snapshot.js");
 require("test-utils/expect-file-exists.js");
 
@@ -278,9 +279,8 @@ describe("/rollup.js", () => {
         // since it is a hash value and changes constantly
         const outputmap = JSON.parse(fs.readFileSync(temp("assets/simple.css.map"), "utf8"));
 
-        expect(outputmap).toMatchSnapshot({
-            file    : expect.any(String),
-            sources : expect.any(Array),
+        expect(outputmap).toMatchMapSnapshot({
+            file : expect.any(String),
         });
 
         expect(temp("assets/simple.css")).toMatchFileSnapshot();
@@ -345,9 +345,7 @@ describe("/rollup.js", () => {
             sourcemap : true,
         });
 
-        expect(result.map).toMatchSnapshot({
-            sources : expect.any(Array),
-        });
+        expect(result.map).toMatchMapSnapshot();
     });
     
     it("should not output sourcemaps when they are disabled", async () => {
