@@ -2,14 +2,14 @@
 
 exports[`modular-css-aliases should be usable as a modular-css resolver 1`] = `
 Object {
-  "fixtures/one/sub/sub.css": Object {
+  "one/sub/sub.css": Object {
     "sub": "sub",
   },
-  "fixtures/start.css": Object {
+  "start.css": Object {
     "rule": "two rule",
     "sub": "\\"sub\\"",
   },
-  "fixtures/two/two.css": Object {
+  "two/two.css": Object {
     "two": "two",
   },
 }
@@ -17,14 +17,14 @@ Object {
 
 exports[`modular-css-aliases should fall through to the default resolver 1`] = `
 Object {
-  "fixtures/one/one.css": Object {
+  "one/one.css": Object {
     "rule": "two rule",
     "sub": "\\"sub\\"",
   },
-  "fixtures/one/sub/sub.css": Object {
+  "one/sub/sub.css": Object {
     "sub": "sub",
   },
-  "fixtures/two/two.css": Object {
+  "two/two.css": Object {
     "two": "two",
   },
 }

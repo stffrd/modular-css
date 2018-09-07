@@ -4,7 +4,7 @@ const dedent = require("dedent");
     
 const Processor = require("modular-css-core");
 const namer = require("test-utils/namer.js");
-const { find } = require("test-utils/fixtures.js");
+const { cwd, find } = require("test-utils/fixtures.js");
 
 const aliases = require("../aliases.js");
 
@@ -44,6 +44,7 @@ describe("modular-css-aliases", () => {
 
     it("should be usable as a modular-css resolver", async () => {
         const processor = new Processor({
+            cwd,
             namer,
             resolvers : [
                 aliases({
@@ -73,6 +74,7 @@ describe("modular-css-aliases", () => {
 
     it("should fall through to the default resolver", async () => {
         const processor = new Processor({
+            cwd,
             namer,
             resolvers : [
                 aliases({
