@@ -8,10 +8,11 @@ const webpack = require("webpack");
 const dedent = require("dedent");
 
 const namer = require("test-utils/namer.js");
-const { find, temp, read, write } = require("test-utils/fixtures.js");
+const { cwd, find, temp, read, write } = require("test-utils/fixtures.js");
 
 require("test-utils/expect-dir-snapshot.js");
 require("test-utils/expect-file-snapshot.js");
+require("test-utils/expect-map-snapshot.js");
 
 const Plugin = require("../plugin.js");
 
@@ -30,6 +31,7 @@ function config({ entry, use, plugin, watch = false }) {
     return {
         entry,
         watch,
+        context : cwd,
 
         mode        : "development",
         recordsPath : path.join(__dirname, "./records", `${path.basename(entry)}.json`),
@@ -47,6 +49,7 @@ function config({ entry, use, plugin, watch = false }) {
         },
         plugins : [
             new Plugin(Object.assign({
+                cwd,
                 namer,
                 css : "./output.css",
             }, plugin)),
@@ -106,13 +109,13 @@ describe("/webpack.js", () => {
             entry  : find("simple.js"),
             plugin : {
                 map : {
-                        inline : false,
-                    },
+                    inline : false,
                 },
+            },
         }), (err, stats) => {
             success(err, stats);
 
-            expect(temp("output.css.map")).toMatchFileSnapshot();
+            expect(temp("output.css.map")).toMatchMapSnapshot();
 
             done();
         });
@@ -147,8 +150,8 @@ describe("/webpack.js", () => {
         webpack(config({
             entry  : find("start.js"),
             plugin : {
-                    json : "./output.json",
-                },
+                json : "./output.json",
+            },
         }), (err, stats) => {
             success(err, stats);
 
