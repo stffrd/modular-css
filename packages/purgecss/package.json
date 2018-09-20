@@ -1,0 +1,24 @@
+{
+  "name": "@modular-css/purgecss-from-svelte",
+  "version": "16.0.0",
+  "description": "PurgeCSS extractor for svelte files using @modular-css/svelte",
+  "main": "./extractor.js",
+  "repository": "tivac/modular-css",
+  "bugs": {
+    "url": "https://github.com/tivac/modular-css/issues"
+  },
+  "author": "Pat Cavit <npm@patcavit.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "modular-css",
+    "extractor",
+    "purgecss",
+    "purgecss-from"
+  ],
+  "peerDependencies": {
+    "purgecss": "^1.1.0"
+  }
+}

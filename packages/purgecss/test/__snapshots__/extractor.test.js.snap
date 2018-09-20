@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`purgecss should properly remove unused classes 1`] = `
+Array [
+  Object {
+    "css": ".title {
+    color: red;
+}",
+    "file": null,
+    "rejected": null,
+  },
+]
+`;
