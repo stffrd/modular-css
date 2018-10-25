@@ -1,5 +1,5 @@
 {
-  "name": "@modular-css/purgecss-from-svelte",
+  "name": "@modular-css/purge-from-svelte",
   "version": "16.0.0",
   "description": "PurgeCSS extractor for svelte files using @modular-css/svelte",
   "main": "./extractor.js",
