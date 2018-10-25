@@ -1,7 +1,5 @@
 "use strict";
 
-"use strict";
-
 const regex = /\bcss\.\w+?\b/gim;
 
 module.exports = ({ dependencies, extensions = [ "html" ] }) => {
@@ -10,13 +8,19 @@ module.exports = ({ dependencies, extensions = [ "html" ] }) => {
     }
 
     return {
-        extract(content) {
-            const matches = content.match(regex);
-            const keys = matches.map((match) => match.replace("css.", ""));
+        extensions,
+        extractor : {
+            extract(content) {
+                const matches = content.match(regex);
+                const keys = matches.map((match) => match.replace("css.", ""));
 
-            const classes = keys.reduce((arr, key) => {
+                // TODO: how to convert key into the dependencies w/o knowing the file?
+                const classes = keys.reduce((arr, key) => {
 
-            }, []);
+                }, []);
+
+                return classes;
+            },
         },
     };
 };
