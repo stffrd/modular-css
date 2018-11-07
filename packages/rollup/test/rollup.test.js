@@ -9,6 +9,7 @@ const shell = require("shelljs");
 const read   = require("@modular-css/test-utils/read.js")(__dirname);
 const exists = require("@modular-css/test-utils/exists.js")(__dirname);
 const prefix = require("@modular-css/test-utils/prefix.js")(__dirname);
+const dir    = require("@modular-css/test-utils/read-dir.js")(__dirname);
 const namer  = require("@modular-css/test-utils/namer.js");
 const logs   = require("@modular-css/test-utils/logs.js");
 
@@ -483,6 +484,31 @@ describe("/rollup.js", () => {
         await processor.output();
 
         logSnapshot();
+    });
+
+    it("should base output filenames on the raw source file names (#525)", async () => {
+        const bundle = await rollup({
+            input : [
+                require.resolve("./specimens/issue-525.js"),
+            ],
+            plugins : [
+                plugin({
+                    map,
+                }),
+            ],
+            experimentalCodeSplitting : true,
+        });
+
+        await bundle.write({
+            dir : prefix(`./output/rollup/raw-names/`),
+            
+            entryFileNames : "[name].[hash].js",
+            
+            format,
+            assetFileNames,
+        });
+
+        expect(dir(`./rollup/raw-names/`)).toMatchSnapshot();
     });
 
     describe("errors", () => {

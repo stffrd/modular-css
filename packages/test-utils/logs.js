@@ -16,7 +16,7 @@ module.exports = (method = "log") => {
             expect(spy).toHaveBeenCalled();
 
             const calls = spy.mock.calls.map((call) =>
-                call.map((arg) => (path.isAbsolute(arg) ?
+                call.map((arg) => (typeof arg === "string" && path.isAbsolute(arg) ?
                     relative([ arg ])[0] :
                     arg
                 ))

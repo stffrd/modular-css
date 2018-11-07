@@ -17,16 +17,6 @@ const emptyMappings = {
     mappings : "",
 };
 
-const makeFile = (details) => {
-    const { entry } = details;
-    const name = path.basename(entry, path.extname(entry));
-
-    return Object.assign(details, {
-        base : path.join(path.dirname(entry), name),
-        name,
-    });
-};
-
 module.exports = function(opts) {
     const options = Object.assign(Object.create(null), {
         common       : "common.css",
@@ -163,15 +153,23 @@ module.exports = function(opts) {
 
             // First pass is used to calculate JS usage of CSS dependencies
             Object.entries(bundles).forEach(([ entry, bundle ]) => {
-                const file = makeFile({
-                    entry,
-                    css : new Set(),
-                });
-
                 const { modules } = bundle;
+                const contents = Object.keys(modules);
+
+                // TODO: this may not work out how I want...
+                // Failing css-chunking test atm because while the entry there is chunk.js
+                // This makes it use the sourcefile name of c.js
+                // Is there a way around this that also strips hashes?
+                const name = outputOptions.file ? entry : contents[contents.length - 1];
+
+                const file = {
+                    entry,
+                    name : path.basename(name, path.extname(name)),
+                    css  : new Set(),
+                };
 
                 // Get CSS files being used by each entry point
-                const css = Object.keys(modules).filter(filter);
+                const css = contents.filter(filter);
 
                 // Get dependency chains for each file
                 css.forEach((start) => {
@@ -223,18 +221,19 @@ module.exports = function(opts) {
 
                 // Common chunk only emitted if necessary
                 if(common.size) {
-                    files.push(makeFile({
+                    files.push({
                         entry : options.common,
+                        name  : path.basename(options.common, path.extname(options.common)),
                         css   : new Set([ ...common.keys() ]),
-                    }));
+                    });
                 }
             }
 
             await Promise.all(
                 files
                 .filter(({ css }) => css.size)
-                .map(async ({ base, name, css }, idx) => {
-                    const id = this.emitAsset(`${base}.css`);
+                .map(async ({ name, css }, idx) => {
+                    const id = this.emitAsset(`${name}.css`);
 
                     log("css output", id);
 
@@ -258,7 +257,7 @@ module.exports = function(opts) {
                     }
 
                     if(result.map) {
-                        const file = `${base}.css.map`;
+                        const file = `${name}.css.map`;
 
                         log("map output", file);
 
